@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum EInteractionType
 {
@@ -21,7 +22,7 @@ public abstract class BaseInteraction : MonoBehaviour
     //lock the interaction so that they will not do other interaction befor finishing the current action
     public abstract void LockInteraction();
 
-    public abstract void Perform();
+    public abstract void Perform(MonoBehaviour performer, UnityEvent<BaseInteraction> onCompleted);
 
     public abstract void UnlockInteraction();
 }

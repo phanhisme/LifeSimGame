@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 58f701239c50ef14494883f16e8383cc, type: 3}
@@ -60,6 +61,7 @@ PrefabInstance:
       value: tv_wall_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 58f701239c50ef14494883f16e8383cc, type: 3}
 --- !u!1 &2216539992114824954 stripped
 GameObject:

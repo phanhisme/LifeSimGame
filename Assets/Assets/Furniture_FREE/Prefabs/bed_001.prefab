@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 17df8d0daf7aec14698bf6d73359a747, type: 3}
@@ -60,6 +61,7 @@ PrefabInstance:
       value: bed_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 17df8d0daf7aec14698bf6d73359a747, type: 3}
 --- !u!1 &3800496436466665405 stripped
 GameObject:
