@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    private GameObject player;
+    //true by default to stop the delay casusing by grids
+    public bool displayGridGizmos;
     private Transform playerPos;
 
     public LayerMask unwalkableMask;
@@ -15,15 +16,23 @@ public class Grid : MonoBehaviour
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
-    private void Start()
+
+    private void Awake()
     {
-        player = GameObject.Find("AI");
-        playerPos = player.transform;
+        playerPos = GameObject.Find("AI").transform;
 
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
+    }
+
+    public int MaxSize
+    {
+        get
+        {
+            return gridSizeX * gridSizeY;
+        }
     }
 
     private void CreateGrid()
@@ -43,30 +52,32 @@ public class Grid : MonoBehaviour
         }
     }
 
-    //public List<Node> GetNeighbors(Node node)
-    //{
-    //    List<Node> neighbors = new List<Node>();
+    public List<Node> GetNeighbours(Node node)
+    {
+        List<Node> neighbours = new List<Node>();
 
-    //    for (int x = -1; x <= 1; x++)
-    //    {
-    //        for(int y = -1; y <= 1; y++)
-    //        {
-    //            //node given to us!
-    //            if (x == 0 && y == 0)
-    //            {
-    //                continue;
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                //node given to us!
+                if (x == 0 && y == 0)
+                {
+                    continue;
+                }
 
-    //                int CheckX = node.gridX + x;
-    //                int CheckY = node.gridY + y;
+                int CheckX = node.gridX + x;
+                int CheckY = node.gridY + y;
 
-    //                if (CheckX >= 0 && CheckX < gridSizeX && CheckY < gridSizeY)
-    //                {
-    //                    neighbors.Add(grid[CheckX, CheckX]);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+                if (CheckX >= 0 && CheckX < gridSizeX && CheckY >= 0 && CheckY < gridSizeY)
+                {
+                    neighbours.Add(grid[CheckX, CheckY]);
+                }
+            }
+        }
+
+        return neighbours;
+    }
 
     public Node NodeFromWorldPoint(Vector3 worldPos)
     {
@@ -82,18 +93,30 @@ public class Grid : MonoBehaviour
         return grid[x, y];
     }
 
+    //create path (for retrace)
+    //public List<Node> path;
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
-        if (grid != null)
+        if (grid != null && displayGridGizmos)
         {
+            //to find the player
             //Node playerNode = NodeFromWorldPoint(playerPos.position);
-
-            foreach(Node node in grid)
+            foreach (Node node in grid)
             {
                 Gizmos.color = (node.walkable) ? Color.white : Color.red;
 
+                //if (path != null)
+                //{
+                //    if (path.Contains(node))
+                //    {
+                //        Gizmos.color = Color.black;
+                //    }
+                //}
+
+                //player location to cyan
                 //if (playerNode == node)
                 //{
                 //    Gizmos.color = Color.cyan;
@@ -101,6 +124,7 @@ public class Grid : MonoBehaviour
 
                 Gizmos.DrawCube(node.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
+
         }
     }
 }

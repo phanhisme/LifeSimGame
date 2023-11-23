@@ -22,7 +22,7 @@ public abstract class BaseInteraction : MonoBehaviour
     //lock the interaction so that they will not do other interaction befor finishing the current action
     public abstract void LockInteraction();
 
-    public abstract void Perform(MonoBehaviour performer, UnityEvent<BaseInteraction> onCompleted);
+    public abstract void Perform(MonoBehaviour performer, UnityAction<BaseInteraction> onCompleted);
 
     public abstract void UnlockInteraction();
 }

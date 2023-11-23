@@ -8,7 +8,7 @@ public class SimpleInteraction : BaseInteraction
     protected class PerformerInfo
     {
         public float ElapseTime;
-        public UnityEvent<BaseInteraction> OnCompleted;
+        public UnityAction<BaseInteraction> OnCompleted;
     }
 
     [SerializeField] protected int _MaxSimultaneousUsers = 1;
@@ -32,7 +32,7 @@ public class SimpleInteraction : BaseInteraction
     }
 
     //which one is the one who perform this action, know when the action is complete => simultaneous
-    public override void Perform(MonoBehaviour performer, UnityEvent<BaseInteraction> onCompleted)
+    public override void Perform(MonoBehaviour performer, UnityAction<BaseInteraction> onCompleted)
     {
         if (NumCurrentUsers <= 0)
         {
