@@ -11,7 +11,7 @@ public class SimpleAI : MonoBehaviour
     
     [SerializeField] protected float PickInteractionInterval = 2f;
 
-    protected float TimeUntilNextInteractionPick = -1;
+    protected float TimeUntilNextInteractionPick = -1f;
 
     private void Awake()
     {
@@ -21,13 +21,29 @@ public class SimpleAI : MonoBehaviour
 
     private void Update()
     {
-        if(currentInteraction!=null&&pathfindingScript.isWalkable)
-        currentInteraction.Perform(this, OnInteractionbFinished);
+        if (currentInteraction != null)
+        {
+            if (pathScript.atTargetPosition)
+            {
+                //we are the performer, allow the interaction to run
+                currentInteraction.Perform(this, OnInteractionbFinished);
+            }
+            else
+            {
+                //if the AI is not at the target position, negative +
+                TimeUntilNextInteractionPick -= Time.deltaTime;
+                if (TimeUntilNextInteractionPick <= 0)
+                {
+
+                }
+            }
+           
+        }
     }
 
     private void OnInteractionbFinished(BaseInteraction interaction)
     {
-        interaction.UnlockInteraction();
+        interaction.UnlockInteraction(); //done with it, unlock the interaction
         currentInteraction = null;
     }
 
@@ -53,7 +69,6 @@ public class SimpleAI : MonoBehaviour
                 Debug.LogError($"Could not move to {selectedObject.name}");
                 currentInteraction = null;
             }
-
 
             //request path here
             PathRequestManager.RequestPath(transform.position, selectedObject.gameObject.transform.position, pathScript.OnPathFound);
