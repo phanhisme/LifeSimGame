@@ -5,7 +5,6 @@ using UnityEngine;
 public class SimpleAI : MonoBehaviour
 {
     Units pathScript;
-    Pathfinding pathfindingScript;
 
     protected BaseInteraction currentInteraction = null;
     
@@ -16,7 +15,6 @@ public class SimpleAI : MonoBehaviour
     private void Awake()
     {
         pathScript = GetComponent<Units>();
-        pathfindingScript = FindObjectOfType<Pathfinding>();
     }
 
     private void Update()
@@ -28,23 +26,28 @@ public class SimpleAI : MonoBehaviour
                 //we are the performer, allow the interaction to run
                 currentInteraction.Perform(this, OnInteractionbFinished);
             }
-            else
-            {
-                //if the AI is not at the target position, negative +
-                TimeUntilNextInteractionPick -= Time.deltaTime;
-                if (TimeUntilNextInteractionPick <= 0)
-                {
-
-                }
-            }
-           
         }
+
+        else
+        {
+            //if the AI is not at the target position, negative +
+            TimeUntilNextInteractionPick -= Time.deltaTime;
+
+            //time to pick an interaction
+            if (TimeUntilNextInteractionPick <= 0)
+            {
+                TimeUntilNextInteractionPick = PickInteractionInterval;
+                PickRandomInteraction();
+            }
+        }             
     }
 
     private void OnInteractionbFinished(BaseInteraction interaction)
     {
         interaction.UnlockInteraction(); //done with it, unlock the interaction
         currentInteraction = null;
+
+        Debug.Log($"Finishjed {interaction.name}");
     }
 
     private void PickRandomInteraction()
@@ -64,15 +67,17 @@ public class SimpleAI : MonoBehaviour
             currentInteraction.LockInteraction();
 
             //if the target node is not walkable
-            if (!pathfindingScript.isWalkable)
+            if (!selectedObject.isWalkable)
             {
                 Debug.LogError($"Could not move to {selectedObject.name}");
                 currentInteraction = null;
             }
-
-            //request path here
-            PathRequestManager.RequestPath(transform.position, selectedObject.gameObject.transform.position, pathScript.OnPathFound);
-
+            else
+            {
+                //request path here
+                PathRequestManager.RequestPath(transform.position, selectedObject.gameObject.transform.position, pathScript.OnPathFound);
+                Debug.Log($"Going to {currentInteraction.name} at {selectedObject.name}");
+            }
         }
     }
 }

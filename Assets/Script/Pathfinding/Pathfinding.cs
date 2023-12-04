@@ -7,7 +7,6 @@ using System.Diagnostics; //calculating time for heaping!
 public class Pathfinding : MonoBehaviour
 {
     private Heap<Node> openSet;
-    public bool isWalkable;
 
     PathRequestManager requestManager;
     Grid grid;
@@ -36,7 +35,6 @@ public class Pathfinding : MonoBehaviour
 
         if (targetNode.walkable)
         {
-            isWalkable = true;
             //Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
             //clearing does not mean the data is gone, it makes the function ignore the data instead
             openSet.Clear();
@@ -98,8 +96,7 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-        else
-            isWalkable = false;
+
         yield return null;
         if (pathSuccess)
         {

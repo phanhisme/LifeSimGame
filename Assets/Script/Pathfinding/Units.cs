@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Units : MonoBehaviour
 {
-    public Transform target;
+    //public Transform[] targets;
 
     Vector3[] path;
     float speed = 5f;
@@ -15,8 +15,8 @@ public class Units : MonoBehaviour
 
     private void Start()
     {
-        //never put this on update -> dont fuck it up!! Call it just once when you have to find the path (please!)
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        //never put this on update -> Call it just once when you have to find the path
+        //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -60,7 +60,7 @@ public class Units : MonoBehaviour
     public void CheckOnTarget()
     {
         maxIndex = path.Length - 1;
-        Debug.Log(path.Length);
+        //Debug.Log(path.Length);
 
         //float xValue = this.transform.position.x;
         //float yValue = this.transform.position.y;

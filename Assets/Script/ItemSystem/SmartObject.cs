@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SmartObject : MonoBehaviour
 {
+    public bool isWalkable;
+
     [SerializeField] protected string _DisplayName;
     protected List<BaseInteraction> CachedInteractions = null;
 
