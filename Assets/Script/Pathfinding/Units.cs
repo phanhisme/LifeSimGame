@@ -51,7 +51,7 @@ public class Units : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoints, speed * Time.deltaTime);
-            CheckOnTarget();
+            //CheckOnTarget();
 
             yield return null;
         }
@@ -59,19 +59,22 @@ public class Units : MonoBehaviour
 
     public void CheckOnTarget()
     {
-        maxIndex = path.Length - 1;
-        //Debug.Log(path.Length);
-
-        //float xValue = this.transform.position.x;
-        //float yValue = this.transform.position.y;
-
-        //check if the player is already at the target position;
-        if (this.transform.position == path[maxIndex])
+        if (path != null)
         {
-            atTargetPosition = true;
+            maxIndex = path.Length - 1;
+            //Debug.Log(path.Length);
+
+            //float xValue = this.transform.position.x;
+            //float yValue = this.transform.position.y;
+
+            //check if the player is already at the target position;
+            if (this.transform.position == path[maxIndex])
+            {
+                atTargetPosition = true;
+            }
+            else
+                atTargetPosition = false;
         }
-        else
-            atTargetPosition = false;
     }
 
     public void OnDrawGizmos()

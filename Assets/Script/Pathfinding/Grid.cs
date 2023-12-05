@@ -16,13 +16,9 @@ public class Grid : MonoBehaviour
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
-    Pathfinding pathfindingScript;
-
     private void Awake()
     {
-        //playerPos = GameObject.Find("Test").transform;
-
-        pathfindingScript = FindObjectOfType<Pathfinding>();
+        //playerPos = GameObject.Find("AI").transform;
 
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -30,51 +26,39 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-    private void Update()
+    public void CheckWalkable(SmartObject selectedObject)
     {
         if (grid != null)
         {
-            SmartObject[] items = FindObjectsOfType<SmartObject>();
-            Transform selectedTransform;
-            foreach (SmartObject item in items)
+            Node itemNode = NodeFromWorldPoint(selectedObject.gameObject.transform.position);
+            if (itemNode.walkable)
             {
-                selectedTransform = item.transform;
-                Node itemNode = NodeFromWorldPoint(selectedTransform.position);
-
-                if (itemNode.walkable)
-                {
-                    Debug.Log(item.name +" is walkable!");
-                    item.isWalkable = true;
-                    Debug.Log(item.isWalkable);
-                }
-                else
-                {
-                    Debug.Log(item.name + " is not walkable!");
-                    item.isWalkable = false;
-                    Debug.Log(item.isWalkable);
-                }
+                Debug.Log(selectedObject.DisplayName + " is walkable!");
+                selectedObject.isWalkable = true;
             }
+            else
+            {
+                Debug.Log(selectedObject.name + " is not walkable!");
+                selectedObject.isWalkable = false;
+            }
+
+            //SmartObject[] items = FindObjectsOfType<SmartObject>();
+            //foreach (SmartObject item in items)
+            //{
+            //    Node node = NodeFromWorldPoint(item.gameObject.transform.position);
+
+            //    if (itemNode.walkable)
+            //    {
+            //        Debug.Log(item.name + " is walkable!");
+            //        item.isWalkable = true;
+            //    }
+            //    else
+            //    {
+            //        Debug.Log(item.name + " is not walkable!");
+            //        item.isWalkable = false;
+            //    }
+            //}
         }
-        //to find the player
-        //Node playerNode = NodeFromWorldPoint(playerPos.position);
-        //if (playerNode.walkable)
-        //{
-        //    pathfindingScript.isWalkable = true;
-        //}
-        //else
-        //{
-        //    pathfindingScript.isWalkable = false;
-        //}
-
-        //foreach (Node node in grid)
-        //{
-        //    //player location to cyan
-        //    if (playerNode == node)
-        //    {
-        //        playerNode.walkable = true;
-        //    }
-        //}
-
     }
 
     public int MaxSize

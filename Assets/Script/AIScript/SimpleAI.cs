@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleAI : MonoBehaviour
 {
     Units pathScript;
+    Grid gridScript;
 
     protected BaseInteraction currentInteraction = null;
     
@@ -15,12 +16,14 @@ public class SimpleAI : MonoBehaviour
     private void Awake()
     {
         pathScript = GetComponent<Units>();
+        gridScript = FindObjectOfType<Grid>();
     }
 
     private void Update()
     {
         if (currentInteraction != null)
         {
+            pathScript.CheckOnTarget();
             if (pathScript.atTargetPosition)
             {
                 //we are the performer, allow the interaction to run
@@ -47,7 +50,8 @@ public class SimpleAI : MonoBehaviour
         interaction.UnlockInteraction(); //done with it, unlock the interaction
         currentInteraction = null;
 
-        Debug.Log($"Finishjed {interaction.name}");
+        Debug.Log($"Finished {interaction.DisplayName}");
+        pathScript.atTargetPosition = false;
     }
 
     private void PickRandomInteraction()
@@ -55,6 +59,7 @@ public class SimpleAI : MonoBehaviour
         //pick an randoom object
         int index = Random.Range(0, SmartObjectManager.Instance.RegisteredObjects.Count);
         SmartObject selectedObject = SmartObjectManager.Instance.RegisteredObjects[index];
+        gridScript.CheckWalkable(selectedObject);
 
         //pick a random interaction
         int interactionIndex = Random.Range(0, selectedObject.Interations.Count);
@@ -74,10 +79,11 @@ public class SimpleAI : MonoBehaviour
             }
             else
             {
+                Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
                 //request path here
-                PathRequestManager.RequestPath(transform.position, selectedObject.gameObject.transform.position, pathScript.OnPathFound);
-                Debug.Log($"Going to {currentInteraction.name} at {selectedObject.name}");
+                PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
             }
         }
     }
+
 }

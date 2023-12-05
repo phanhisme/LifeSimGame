@@ -7,7 +7,10 @@ public class SmartObject : MonoBehaviour
     public bool isWalkable;
 
     [SerializeField] protected string _DisplayName;
+    [SerializeField] protected Transform _InteractionMarker;
     protected List<BaseInteraction> CachedInteractions = null;
+
+    public Vector3 InteractionPoint => _InteractionMarker != null ? _InteractionMarker.position : transform.position;
 
     public string DisplayName => _DisplayName;
     public List<BaseInteraction> Interations

@@ -1193,7 +1193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728fc6b7c2da32f40bbc566fa36bbfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalkable: 0
 --- !u!114 &1405082274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 515e5fa7a096e544d83584da0fdc57e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWalkable: 0
   _DisplayName: Target
+  _InteractionMarker: {fileID: 0}
 --- !u!114 &1645962381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2026,9 +2027,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: tv_wall_001
       objectReference: {fileID: 0}
+    - target: {fileID: 2048064738810540995, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
+      propertyPath: _InteractionMarker
+      value: 
+      objectReference: {fileID: 2048064738208944145}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
+--- !u!4 &2048064738208944145 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7047424401510072442, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
+  m_PrefabInstance: {fileID: 2048064738208944144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3904687108240253413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2037,6 +2047,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 103419756}
     m_Modifications:
+    - target: {fileID: 591660485426266613, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 3904687108967250256, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
       propertyPath: m_Name
       value: bed_001
@@ -2085,9 +2099,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3904687108967250258, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+      propertyPath: _InteractionMarker
+      value: 
+      objectReference: {fileID: 3904687108240253414}
+    - target: {fileID: 3904687108967250259, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+      propertyPath: _Duration
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+--- !u!4 &3904687108240253414 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3502881003645437705, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+  m_PrefabInstance: {fileID: 3904687108240253413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4892887917502683714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3442764996763862858, guid: 29d19e0dc7a15f448b41fb86c360edcc, type: 3}
