@@ -25,8 +25,13 @@ public class Units : MonoBehaviour
         {
             path = newPath;
             atTargetPosition = false;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+
+            //resetting path -> set the AI's first index back to 0
+            targetIndex = 0;
+            
+            //StopCoroutine(FollowPath());
+            StopAllCoroutines();
+            StartCoroutine(FollowPath());
         }
     }
 

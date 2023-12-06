@@ -26,20 +26,21 @@ public class Grid : MonoBehaviour
         CreateGrid();
     }
 
-    public void CheckWalkable(SmartObject selectedObject)
+    public bool CheckWalkable(SmartObject selectedObject)
     {
         if (grid != null)
         {
             Node itemNode = NodeFromWorldPoint(selectedObject.gameObject.transform.position);
             if (itemNode.walkable)
             {
-                Debug.Log(selectedObject.DisplayName + " is walkable!");
+                //Debug.Log(selectedObject.DisplayName + " is walkable!");
                 selectedObject.isWalkable = true;
             }
             else
             {
-                Debug.Log(selectedObject.name + " is not walkable!");
+                //Debug.Log(selectedObject.name + " is not walkable!");
                 selectedObject.isWalkable = false;
+                return false;
             }
 
             //SmartObject[] items = FindObjectsOfType<SmartObject>();
@@ -59,6 +60,7 @@ public class Grid : MonoBehaviour
             //    }
             //}
         }
+        return true;
     }
 
     public int MaxSize

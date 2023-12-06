@@ -33,7 +33,7 @@ public class SimpleAI : MonoBehaviour
 
         else
         {
-            //if the AI is not at the target position, negative +
+            //if the AI is not at the target position
             TimeUntilNextInteractionPick -= Time.deltaTime;
 
             //time to pick an interaction
@@ -59,7 +59,14 @@ public class SimpleAI : MonoBehaviour
         //pick an randoom object
         int index = Random.Range(0, SmartObjectManager.Instance.RegisteredObjects.Count);
         SmartObject selectedObject = SmartObjectManager.Instance.RegisteredObjects[index];
-        gridScript.CheckWalkable(selectedObject);
+        
+        //gridScript.CheckWalkable(selectedObject);
+        if (!gridScript.CheckWalkable(selectedObject))
+        {
+            //if the picked object is not walkable -> pick another interaction
+            currentInteraction = null;
+            return;
+        }
 
         //pick a random interaction
         int interactionIndex = Random.Range(0, selectedObject.Interations.Count);
@@ -71,18 +78,9 @@ public class SimpleAI : MonoBehaviour
             currentInteraction = selectedInteraction;
             currentInteraction.LockInteraction();
 
-            //if the target node is not walkable
-            if (!selectedObject.isWalkable)
-            {
-                Debug.LogError($"Could not move to {selectedObject.name}");
-                currentInteraction = null;
-            }
-            else
-            {
-                Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
-                //request path here
-                PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
-            }
+            //request path
+            Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
+            PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
         }
     }
 
