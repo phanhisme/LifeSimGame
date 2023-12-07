@@ -43,8 +43,9 @@ GameObject:
   - component: {fileID: 917323463379265646}
   - component: {fileID: 7249242074360284250}
   - component: {fileID: 8505190230652505732}
-  - component: {fileID: 2048064738810540994}
-  - component: {fileID: 2048064738810540995}
+  - component: {fileID: 4172253784719444889}
+  - component: {fileID: 7820605860745865328}
+  - component: {fileID: 7391056868073170473}
   m_Layer: 0
   m_Name: tv_wall_001
   m_TagString: Untagged
@@ -132,7 +133,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6446553986263542980, guid: 58f701239c50ef14494883f16e8383cc, type: 3}
---- !u!114 &2048064738810540994
+--- !u!114 &4172253784719444889
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,14 +142,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2048064738810540993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fae82e88c48e06b4196fd857027834d4, type: 3}
+  m_Script: {fileID: 11500000, guid: a25fb4fc8e30369428e36b7ee9c783d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _DisplayName: Watch TV
-  _InteractionType: 1
-  _Duration: 5
-  _MaxSimultaneousUsers: 3
---- !u!114 &2048064738810540995
+  _DisplayName: Toggle Power
+  _InteractionType: 0
+  _Duration: 0
+  _MaxSimultaneousUsers: 1
+--- !u!114 &7820605860745865328
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +158,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2048064738810540993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 515e5fa7a096e544d83584da0fdc57e2, type: 3}
+  m_Script: {fileID: 11500000, guid: adbc03c5b6e151c42bc6fd48dd70f20b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _DisplayName: Surf Channel
+  _InteractionType: 0
+  _Duration: 5
+  _MaxSimultaneousUsers: 3
+--- !u!114 &7391056868073170473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048064738810540993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b27dad068063545aa2a0addb5115db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isWalkable: 0

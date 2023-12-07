@@ -143,11 +143,10 @@ public class Pathfinding : MonoBehaviour
 
             //if i = the last node in the list, make sure the direction between this node and the startNode does not match directionOld
             //if true => add this new node as a waypoint
-            if (i == path.Count - 1 && directionOld != new Vector2(path[i].gridX, path[i].gridY) - new Vector2(startNode.gridX, startNode.gridY))
-            {
-                waypoints.Add(path[path.Count - 1].worldPosition);
-            }
-
+            //if (i == path.Count - 1 && directionOld != new Vector2(path[i].gridX, path[i].gridY) - new Vector2(startNode.gridX, startNode.gridY))
+            //{
+            //    waypoints.Add(path[path.Count - 1].worldPosition);
+            //}
         }
 
         return waypoints.ToArray();

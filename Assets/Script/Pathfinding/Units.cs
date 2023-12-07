@@ -9,14 +9,17 @@ public class Units : MonoBehaviour
     Vector3[] path;
     float speed = 5f;
     int targetIndex;
-    int maxIndex;
 
     public bool atTargetPosition = false;
+
+    private Grid gridScript;
 
     private void Start()
     {
         //never put this on update -> Call it just once when you have to find the path
         //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+
+        gridScript = FindObjectOfType<Grid>();
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful)
@@ -24,19 +27,17 @@ public class Units : MonoBehaviour
         if (pathSuccessful)
         {
             path = newPath;
-            atTargetPosition = false;
-
-            //resetting path -> set the AI's first index back to 0
-            targetIndex = 0;
             
-            //StopCoroutine(FollowPath());
-            StopAllCoroutines();
+            //atTargetPosition = false;
+            //StopAllCoroutines();
+            StopCoroutine(FollowPath());
             StartCoroutine(FollowPath());
         }
     }
 
     IEnumerator FollowPath()
     {
+        //error. 8/12 -> trying to acess a non-existing waypoints
         //first vector 3 in the path array
         Vector3 currentWaypoints = path[0];
 
@@ -49,6 +50,7 @@ public class Units : MonoBehaviour
 
                 if (targetIndex >= path.Length)
                 {
+                    targetIndex = 0;
                     yield break;
                 }
 
@@ -56,7 +58,6 @@ public class Units : MonoBehaviour
             }
 
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoints, speed * Time.deltaTime);
-            //CheckOnTarget();
 
             yield return null;
         }
@@ -66,19 +67,22 @@ public class Units : MonoBehaviour
     {
         if (path != null)
         {
-            maxIndex = path.Length - 1;
             //Debug.Log(path.Length);
 
             //float xValue = this.transform.position.x;
             //float yValue = this.transform.position.y;
 
             //check if the player is already at the target position;
-            if (this.transform.position == path[maxIndex])
+            Node AINode = gridScript.NodeFromWorldPoint(this.transform.position);
+            Node targetNode = gridScript.NodeFromWorldPoint(path[path.Length - 1]);
+            if (AINode == targetNode)
             {
                 atTargetPosition = true;
             }
             else
+            {
                 atTargetPosition = false;
+            }
         }
     }
 

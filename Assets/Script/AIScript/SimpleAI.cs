@@ -13,7 +13,9 @@ public class SimpleAI : MonoBehaviour
 
     protected float TimeUntilNextInteractionPick = -1f;
 
-    private void Awake()
+    protected bool HasPerformedOnObject = false;
+
+    private void Start()
     {
         pathScript = GetComponent<Units>();
         gridScript = FindObjectOfType<Grid>();
@@ -21,19 +23,24 @@ public class SimpleAI : MonoBehaviour
 
     private void Update()
     {
+        pathScript.CheckOnTarget();
         if (currentInteraction != null)
         {
-            pathScript.CheckOnTarget();
-            if (pathScript.atTargetPosition)
+            if (pathScript.atTargetPosition && !HasPerformedOnObject)
             {
+                Debug.Log("perform on a new object");
                 //we are the performer, allow the interaction to run
-                currentInteraction.Perform(this, OnInteractionbFinished);
+                currentInteraction.Perform(this, OnInteractionFinished);
+            }
+            else if (!pathScript.atTargetPosition)
+            {
+                HasPerformedOnObject = false;
             }
         }
 
         else
         {
-            //if the AI is not at the target position
+            //if the AI does not have any interaction
             TimeUntilNextInteractionPick -= Time.deltaTime;
 
             //time to pick an interaction
@@ -45,29 +52,21 @@ public class SimpleAI : MonoBehaviour
         }             
     }
 
-    private void OnInteractionbFinished(BaseInteraction interaction)
+    private void OnInteractionFinished(BaseInteraction interaction)
     {
         interaction.UnlockInteraction(); //done with it, unlock the interaction
         currentInteraction = null;
+        HasPerformedOnObject = true;
 
         Debug.Log($"Finished {interaction.DisplayName}");
-        pathScript.atTargetPosition = false;
     }
 
     private void PickRandomInteraction()
     {
-        //pick an randoom object
+        //pick an random object
         int index = Random.Range(0, SmartObjectManager.Instance.RegisteredObjects.Count);
         SmartObject selectedObject = SmartObjectManager.Instance.RegisteredObjects[index];
         
-        //gridScript.CheckWalkable(selectedObject);
-        if (!gridScript.CheckWalkable(selectedObject))
-        {
-            //if the picked object is not walkable -> pick another interaction
-            currentInteraction = null;
-            return;
-        }
-
         //pick a random interaction
         int interactionIndex = Random.Range(0, selectedObject.Interations.Count);
         BaseInteraction selectedInteraction = selectedObject.Interations[interactionIndex];
@@ -75,13 +74,21 @@ public class SimpleAI : MonoBehaviour
         //can perform the interaction
         if (selectedInteraction.CanPerform())
         {
-            currentInteraction = selectedInteraction;
-            currentInteraction.LockInteraction();
-
-            //request path
-            Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
-            PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
+            //gridScript.CheckWalkable(selectedObject);
+            if (!gridScript.CheckWalkable(selectedObject))
+            {
+                Debug.LogError($"Could not move to {selectedObject.name}");
+                currentInteraction = null;
+            }
+            else
+            {
+                currentInteraction = selectedInteraction;
+                //Debug.Log(currentInteraction);
+                currentInteraction.LockInteraction();
+                //request path
+                Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
+                PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
+            }
         }
     }
-
 }

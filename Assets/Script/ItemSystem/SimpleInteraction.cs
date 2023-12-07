@@ -56,8 +56,9 @@ public class SimpleInteraction : BaseInteraction
         if (NumCurrentUsers <= 0)
         {
             Debug.LogError($"Trying to unlock an already unlocked interaction {_DisplayName}");
-            --NumCurrentUsers;
         }
+        
+        --NumCurrentUsers;
     }
 
     protected virtual void Update()

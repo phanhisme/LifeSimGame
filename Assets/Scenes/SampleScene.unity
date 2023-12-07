@@ -253,14 +253,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 989648373}
-  - {fileID: 901039552}
-  - {fileID: 1340582184}
   - {fileID: 4892887917502683714}
   - {fileID: 1547477968}
   - {fileID: 7496501}
-  - {fileID: 1905870677}
   - {fileID: 1958680756}
+  - {fileID: 989648373}
+  - {fileID: 901039552}
+  - {fileID: 1340582184}
+  - {fileID: 1905870677}
   - {fileID: 1565834907}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1121,6 +1121,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: closet_001
       objectReference: {fileID: 0}
+    - target: {fileID: 2950561190879039325, guid: f55d7df03694fd244a9b29dcc29c2175, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: f55d7df03694fd244a9b29dcc29c2175, type: 3}
@@ -1175,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b2dbf1937c7024b8b0a506ef980af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 1
+  displayGridGizmos: 0
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1363,6 +1367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: fridge_001
       objectReference: {fileID: 0}
+    - target: {fileID: 5475051098011276006, guid: a457d02d5bf10c9459386d5931ca3a94, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: a457d02d5bf10c9459386d5931ca3a94, type: 3}
@@ -1391,7 +1399,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1645962376
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1700,6 +1708,10 @@ PrefabInstance:
     - target: {fileID: 917278889609147279, guid: 7ffe462c97c4b684991a6f9472318357, type: 3}
       propertyPath: m_Name
       value: kitchen_table_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 917278889609147279, guid: 7ffe462c97c4b684991a6f9472318357, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2027,10 +2039,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: tv_wall_001
       objectReference: {fileID: 0}
+    - target: {fileID: 2048064738810540993, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2048064738810540995, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
       propertyPath: _InteractionMarker
       value: 
       objectReference: {fileID: 2048064738208944145}
+    - target: {fileID: 4172253784719444889, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
+      propertyPath: _Duration
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
@@ -2054,6 +2074,10 @@ PrefabInstance:
     - target: {fileID: 3904687108967250256, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
       propertyPath: m_Name
       value: bed_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3904687108967250256, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3904687108967250257, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
       propertyPath: m_RootOrder
@@ -2107,6 +2131,10 @@ PrefabInstance:
       propertyPath: _Duration
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3904687108967250259, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
+      propertyPath: _InteractionType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b1bbc5b78e0f764fb79503a33ab4799, type: 3}
@@ -2146,7 +2174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3442764996763862858, guid: 29d19e0dc7a15f448b41fb86c360edcc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.695
+      value: -4.308
       objectReference: {fileID: 0}
     - target: {fileID: 3442764996763862858, guid: 29d19e0dc7a15f448b41fb86c360edcc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2190,6 +2218,10 @@ PrefabInstance:
     - target: {fileID: 7901927823044818989, guid: 902bca35cd78b8d4284d31fbe5b8b9a2, type: 3}
       propertyPath: m_Name
       value: musical_instrument_001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901927823044818989, guid: 902bca35cd78b8d4284d31fbe5b8b9a2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7901927823044818990, guid: 902bca35cd78b8d4284d31fbe5b8b9a2, type: 3}
       propertyPath: m_RootOrder
