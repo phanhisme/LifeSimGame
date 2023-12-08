@@ -26,20 +26,29 @@ public class Units : MonoBehaviour
     {
         if (pathSuccessful)
         {
+            StopCoroutine(FollowPath());
+            targetIndex = 0;
             path = newPath;
-            
+            //reset target index back to 0
+
             //atTargetPosition = false;
             //StopAllCoroutines();
-            StopCoroutine(FollowPath());
             StartCoroutine(FollowPath());
         }
     }
 
     IEnumerator FollowPath()
     {
+        if (path == null)
+        {
+            Debug.Log("...");
+        }
+        else
+            Debug.Log("path is there");
         //error. 8/12 -> trying to acess a non-existing waypoints
         //first vector 3 in the path array
         Vector3 currentWaypoints = path[0];
+        Debug.Log(currentWaypoints);
 
         while (true)
         {
@@ -50,7 +59,6 @@ public class Units : MonoBehaviour
 
                 if (targetIndex >= path.Length)
                 {
-                    targetIndex = 0;
                     yield break;
                 }
 

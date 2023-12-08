@@ -80,14 +80,23 @@ public class SimpleAI : MonoBehaviour
                 Debug.LogError($"Could not move to {selectedObject.name}");
                 currentInteraction = null;
             }
-            else
+            else if (gridScript.CheckWalkable(selectedObject))
             {
                 currentInteraction = selectedInteraction;
-                //Debug.Log(currentInteraction);
                 currentInteraction.LockInteraction();
-                //request path
-                Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
-                PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
+
+                if (!HasPerformedOnObject && !pathScript.atTargetPosition)
+                {
+                    //not at the destination -> request path
+                    Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
+                    PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
+                }
+                else if (HasPerformedOnObject && pathScript.atTargetPosition)
+                {
+                    //already at the target position
+                    Debug.Log("already at the target position");
+                }
+                
             }
         }
     }
