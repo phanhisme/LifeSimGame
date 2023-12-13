@@ -149,7 +149,7 @@ MonoBehaviour:
   _Duration: 10
   _StatChanges:
   - Target: 0
-    Value: 0.5
+    Value: 0.3
   MaxSimultaneousUsers: 1
 --- !u!114 &3904687108967250258
 MonoBehaviour:

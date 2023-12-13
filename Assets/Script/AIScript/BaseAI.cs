@@ -77,7 +77,7 @@ public class BaseAI : MonoBehaviour
     public void UpdateIndividualStat(AIStat target, float amount)
     {
         //update stats after choosing the interaction => can modify to only call this after finish performing
-        Debug.Log($"Update {target} by {amount}");
+        //Debug.Log($"Update {target} by {amount}");
         switch (target)
         {
             case AIStat.Energy: CurrentEnergy += amount;

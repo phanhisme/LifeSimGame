@@ -148,7 +148,9 @@ MonoBehaviour:
   _DisplayName: Toggle Power
   _InteractionType: 0
   _Duration: 0
-  _StatChanges: []
+  _StatChanges:
+  - Target: 1
+    Value: 0.2
   MaxSimultaneousUsers: 1
 --- !u!114 &7820605860745865328
 MonoBehaviour:
@@ -167,7 +169,7 @@ MonoBehaviour:
   _Duration: 5
   _StatChanges:
   - Target: 1
-    Value: 0.15
+    Value: 0.3
   MaxSimultaneousUsers: 1
 --- !u!114 &7391056868073170473
 MonoBehaviour:
