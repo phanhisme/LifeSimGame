@@ -39,16 +39,9 @@ public class Units : MonoBehaviour
 
     IEnumerator FollowPath()
     {
-        if (path == null)
-        {
-            Debug.Log("...");
-        }
-        else
-            Debug.Log("path is there");
         //error. 8/12 -> trying to acess a non-existing waypoints
         //first vector 3 in the path array
         Vector3 currentWaypoints = path[0];
-        Debug.Log(currentWaypoints);
 
         while (true)
         {

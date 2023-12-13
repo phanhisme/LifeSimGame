@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour
     {
         if (grid != null)
         {
-            Node itemNode = NodeFromWorldPoint(selectedObject.gameObject.transform.position);
+            Node itemNode = NodeFromWorldPoint(selectedObject.InteractionPoint);
             if (itemNode.walkable)
             {
                 //Debug.Log(selectedObject.DisplayName + " is walkable!");

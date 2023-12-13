@@ -311,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c3f39ecd44dff24e8990f7cbb65212b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickInteractionInterval: 2
+  PickInteractionInterval: 5
 --- !u!114 &255589914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b2dbf1937c7024b8b0a506ef980af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 0
+  displayGridGizmos: 1
   unwalkableMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1675,7 +1675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 572244017260947765, guid: 7ffe462c97c4b684991a6f9472318357, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.5
+      value: -4.572
       objectReference: {fileID: 0}
     - target: {fileID: 572244017260947765, guid: 7ffe462c97c4b684991a6f9472318357, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1711,7 +1711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 917278889609147279, guid: 7ffe462c97c4b684991a6f9472318357, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2174,7 +2174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3442764996763862858, guid: 29d19e0dc7a15f448b41fb86c360edcc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.308
+      value: -4.605
       objectReference: {fileID: 0}
     - target: {fileID: 3442764996763862858, guid: 29d19e0dc7a15f448b41fb86c360edcc, type: 3}
       propertyPath: m_LocalRotation.w

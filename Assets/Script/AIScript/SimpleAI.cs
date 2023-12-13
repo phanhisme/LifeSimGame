@@ -8,12 +8,10 @@ public class SimpleAI : MonoBehaviour
     Grid gridScript;
 
     protected BaseInteraction currentInteraction = null;
+    protected SmartObject pastObject;
     
     [SerializeField] protected float PickInteractionInterval = 2f;
-
     protected float TimeUntilNextInteractionPick = -1f;
-
-    protected bool HasPerformedOnObject = false;
 
     private void Start()
     {
@@ -26,27 +24,22 @@ public class SimpleAI : MonoBehaviour
         pathScript.CheckOnTarget();
         if (currentInteraction != null)
         {
-            if (pathScript.atTargetPosition && !HasPerformedOnObject)
+            if (pathScript.atTargetPosition /*&& !HasPerformedOnObject*/)
             {
-                Debug.Log("perform on a new object");
                 //we are the performer, allow the interaction to run
                 currentInteraction.Perform(this, OnInteractionFinished);
-            }
-            else if (!pathScript.atTargetPosition)
-            {
-                HasPerformedOnObject = false;
             }
         }
 
         else
         {
-            //if the AI does not have any interaction
             TimeUntilNextInteractionPick -= Time.deltaTime;
-
+            
             //time to pick an interaction
             if (TimeUntilNextInteractionPick <= 0)
             {
                 TimeUntilNextInteractionPick = PickInteractionInterval;
+                //HasPerformedOnObject = false;
                 PickRandomInteraction();
             }
         }             
@@ -55,8 +48,9 @@ public class SimpleAI : MonoBehaviour
     private void OnInteractionFinished(BaseInteraction interaction)
     {
         interaction.UnlockInteraction(); //done with it, unlock the interaction
+        
+        //current interaction become null right away after touching the destination
         currentInteraction = null;
-        HasPerformedOnObject = true;
 
         Debug.Log($"Finished {interaction.DisplayName}");
     }
@@ -71,10 +65,21 @@ public class SimpleAI : MonoBehaviour
         int interactionIndex = Random.Range(0, selectedObject.Interations.Count);
         BaseInteraction selectedInteraction = selectedObject.Interations[interactionIndex];
 
+        if (selectedObject != null)
+        {
+            if (selectedObject == pastObject)
+            {
+                Debug.Log("Chose the same object " + selectedObject + " past: " + pastObject);
+                return;
+            }
+        }
+
         //can perform the interaction
         if (selectedInteraction.CanPerform())
         {
-            //gridScript.CheckWalkable(selectedObject);
+            currentInteraction = selectedInteraction;
+            currentInteraction.LockInteraction();
+
             if (!gridScript.CheckWalkable(selectedObject))
             {
                 Debug.LogError($"Could not move to {selectedObject.name}");
@@ -82,22 +87,11 @@ public class SimpleAI : MonoBehaviour
             }
             else if (gridScript.CheckWalkable(selectedObject))
             {
-                currentInteraction = selectedInteraction;
-                currentInteraction.LockInteraction();
-
-                if (!HasPerformedOnObject && !pathScript.atTargetPosition)
-                {
-                    //not at the destination -> request path
-                    Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
-                    PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
-                }
-                else if (HasPerformedOnObject && pathScript.atTargetPosition)
-                {
-                    //already at the target position
-                    Debug.Log("already at the target position");
-                }
-                
-            }
+                //not at the destination -> request path
+                Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
+                PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
+                pastObject = selectedObject;
+            }   
         }
     }
 }
