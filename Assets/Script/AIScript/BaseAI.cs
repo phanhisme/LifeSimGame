@@ -70,6 +70,7 @@ public class BaseAI : MonoBehaviour
 
         //current interaction become null right away after touching the destination
         currentInteraction = null;
+        //thus, sometimes result in the interaction completed when the player is not on the targeted interaction point
 
         Debug.Log($"Finished {interaction.DisplayName}");
     }
