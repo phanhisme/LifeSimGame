@@ -147,7 +147,10 @@ MonoBehaviour:
   _DisplayName: Practice Music
   _InteractionType: 0
   _Duration: 5
-  _MaxSimultaneousUsers: 1
+  _StatChanges:
+  - Target: 1
+    Value: 0.1
+  MaxSimultaneousUsers: 1
 --- !u!114 &7901927823044818988
 MonoBehaviour:
   m_ObjectHideFlags: 0

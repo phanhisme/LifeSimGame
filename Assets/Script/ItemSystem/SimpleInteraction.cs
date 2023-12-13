@@ -7,32 +7,33 @@ public class SimpleInteraction : BaseInteraction
 {
     protected class PerformerInfo
     {
+        public BaseAI PerformingAI;
         public float ElapseTime;
         public UnityAction<BaseInteraction> OnCompleted;
     }
 
-    [SerializeField] protected int _MaxSimultaneousUsers = 1;
+    [SerializeField] protected int MaxSimultaneousUsers = 1;
     
     protected int NumCurrentUsers = 0;
     protected List<PerformerInfo> CurrentPerformers = new List<PerformerInfo>();
 
     public override bool CanPerform()
     {
-        return NumCurrentUsers < _MaxSimultaneousUsers;
+        return NumCurrentUsers < MaxSimultaneousUsers;
     }
 
     public override void LockInteraction()
     {
         ++NumCurrentUsers;
 
-        if (NumCurrentUsers > _MaxSimultaneousUsers)
+        if (NumCurrentUsers > MaxSimultaneousUsers)
         {
             Debug.LogError($"Too many users have locked this interaction {_DisplayName}");
         }
     }
 
     //which one is the one who perform this action, know when the action is complete => simultaneous
-    public override void Perform(MonoBehaviour performer, UnityAction<BaseInteraction> onCompleted)
+    public override void Perform(BaseAI performer, UnityAction<BaseInteraction> onCompleted)
     {
         if (NumCurrentUsers <= 0)
         {
@@ -41,13 +42,23 @@ public class SimpleInteraction : BaseInteraction
         }
 
         //check the interaction type
-        if (_InteractionType == EInteractionType.Instananeous)
+        if (InteractionType == EInteractionType.Instananeous)
         {
+            if (StatChanges.Length > 0)
+            {
+                ApplyStatChanges(performer, 1f);
+            }
+
             onCompleted.Invoke(this);
         }
-        else if (_InteractionType == EInteractionType.Overtime)
+        else if (InteractionType == EInteractionType.Overtime)
         {
-            CurrentPerformers.Add(new PerformerInfo() { ElapseTime = 0, OnCompleted = onCompleted });
+            CurrentPerformers.Add(new PerformerInfo() 
+            {
+                PerformingAI = performer,
+                ElapseTime = 0,
+                OnCompleted = onCompleted
+            });
         }
     }
 
@@ -57,18 +68,26 @@ public class SimpleInteraction : BaseInteraction
         {
             Debug.LogError($"Trying to unlock an already unlocked interaction {_DisplayName}");
         }
-        
+
         --NumCurrentUsers;
+        //Mathf.Min();
     }
 
     protected virtual void Update()
     {
+        //duration of the interaction is not working at the moment!
         //update any current performers (in reversed order)
         for (int index = CurrentPerformers.Count - 1; index >= 0; index--)
         {
             PerformerInfo performer = CurrentPerformers[index];
 
-            performer.ElapseTime += Time.deltaTime;
+            float previousElapsedTime = performer.ElapseTime;
+            performer.ElapseTime = Mathf.Min(performer.ElapseTime + Time.deltaTime, _Duration);
+
+            if (StatChanges.Length > 0)
+            {
+                ApplyStatChanges(performer.PerformingAI, (performer.ElapseTime - previousElapsedTime) / _Duration);
+            }
 
             //interaction complete?
             if (performer.ElapseTime >= _Duration)

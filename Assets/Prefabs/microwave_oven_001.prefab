@@ -116,7 +116,10 @@ MonoBehaviour:
   _DisplayName: Get Quick Meal
   _InteractionType: 0
   _Duration: 5
-  _MaxSimultaneousUsers: 1
+  _StatChanges:
+  - Target: 2
+    Value: 0.2
+  MaxSimultaneousUsers: 1
 --- !u!114 &2620500640002311039
 MonoBehaviour:
   m_ObjectHideFlags: 0
