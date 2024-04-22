@@ -5,39 +5,78 @@ using TMPro;
 
 public class CycleDay : MonoBehaviour
 {
-    public int countdown;
-    private bool counted = false;
-    private TextMeshProUGUI text;
+    public float realTime = 10f; //1 realtime seconds
+    public float inGameTime = 0.0f; //default in game time
+    public int currentDay = 1; //track day in cycle
+    public int yearNumber = 0;
 
-    private void Start()
+    public TextMeshProUGUI dayDisplay;
+
+    private enum Season { SPRING, SUMMER, FALL, WINTER }
+    [SerializeField] private Season currentSeason;
+
+    void Start()
     {
-        text = GetComponent<TextMeshProUGUI>();
+        currentSeason = Season.SPRING;
+
+        dayDisplay.text = FormattedDate();
     }
 
-    private void Update()
+    void Update()
     {
-        text.text = countdown.ToString() + " seconds";
+        CheckInGame();
+    }
 
-        if (!counted)
+    void CheckInGame()
+    {
+        inGameTime += Time.deltaTime * realTime;
+
+        if (inGameTime >= 24.0f)
         {
-            StartCoroutine(CountDown());
-            counted = true;
+            inGameTime = 0; //reset time back to 0
+            currentDay++;
+
+            if (currentDay > 5)
+            {
+                currentDay = 1;
+                ChangeSeason();
+            }
         }
     }
 
-    IEnumerator CountDown()
+    void ChangeSeason()
     {
-        if (countdown > 0)
+        switch (currentSeason)
         {
-            yield return new WaitForSeconds(1f);
-            countdown--;
+            case Season.SPRING:
+                currentSeason = Season.SUMMER;
+                break;
+            case Season.SUMMER:
+                currentSeason = Season.FALL;
+                break;
+            case Season.FALL:
+                currentSeason = Season.WINTER;
+                break;
+            case Season.WINTER:
+                currentSeason = Season.SPRING;
+                yearNumber++;
+                break;
         }
+    }
 
-        if (countdown <= 5)
-        {
-            text.color = Color.red;
-        }
-
-        counted = false;
+    public string FormattedDate()
+    {
+        //set string for day and year
+        string dayOnDisplay = currentDay.ToString();
+        string yearOnDisplay = yearNumber.ToString();
+        
+        //set string for season 
+        string seasonOnDisplay = currentSeason.ToString();
+        //keep the first letter of the season uppercase and lowercase the rest
+        //substring returns a substring of the current StringView, starting at index start and until the end of the StringView - Unity API
+        seasonOnDisplay = seasonOnDisplay.Substring(0, 1).ToUpper() + seasonOnDisplay.Substring(1).ToLower();
+        
+        //return a custom string for display
+        return $"Day {dayOnDisplay:dddd}, {seasonOnDisplay}, Year {yearOnDisplay:yyyy}";
     }
 }

@@ -5,60 +5,39 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    public float realTime = 10f; //1 realtime seconds
-    public float inGameTime = 0.0f; //default in game time
-    public int currentDay = 1; //track day in cycle
-    public int yearNumber = 0;
+    public int countdown;
+    private bool counted = false;
+    private TextMeshProUGUI text;
 
-    public TextMeshProUGUI dayDisplay;
-
-    private enum Season { SPRING, SUMMER, FALL, WINTER }
-    [SerializeField] private Season currentSeason;
-
-    void Start()
+    private void Start()
     {
-        currentSeason = Season.SPRING;
+        text = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    private void Update()
     {
-        CheckInGame();
-    }
+        text.text = countdown.ToString() + " seconds";
 
-    void CheckInGame()
-    {
-        inGameTime += Time.deltaTime * realTime;
-
-        if (inGameTime >= 24.0f)
+        if (!counted)
         {
-            inGameTime = 0; //reset time back to 0
-            currentDay++;
-
-            if (currentDay > 5)
-            {
-                currentDay = 1;
-                ChangeSeason();
-            }
+            StartCoroutine(CountDown());
+            counted = true;
         }
     }
 
-    void ChangeSeason()
+    IEnumerator CountDown()
     {
-        switch (currentSeason)
+        if (countdown > 0)
         {
-            case Season.SPRING:
-                currentSeason = Season.SUMMER;
-                break;
-            case Season.SUMMER:
-                currentSeason = Season.FALL;
-                break;
-            case Season.FALL:
-                currentSeason = Season.WINTER;
-                break;
-            case Season.WINTER:
-                currentSeason = Season.SPRING;
-                yearNumber++;
-                break;
+            yield return new WaitForSeconds(1f);
+            countdown--;
         }
+
+        if (countdown <= 5)
+        {
+            text.color = Color.red;
+        }
+
+        counted = false;
     }
 }
