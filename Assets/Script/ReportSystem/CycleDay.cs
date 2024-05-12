@@ -5,26 +5,65 @@ using TMPro;
 
 public class CycleDay : MonoBehaviour
 {
+    public GameObject panel;
+    
     public float realTime = 10f; //1 realtime seconds
     public float inGameTime = 0.0f; //default in game time
     public int currentDay = 1; //track day in cycle
     public int yearNumber = 0;
 
     public TextMeshProUGUI dayDisplay;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI nextDayText;
+
+    public enum Status { RUNNING, RATINGINPROCESS}
+    public Status currentStatus;
 
     private enum Season { SPRING, SUMMER, FALL, WINTER }
     [SerializeField] private Season currentSeason;
 
+    private BaseAI player;
+
+    public int countdown;
+    private bool counted = false;
+    private bool callOnce = false;
+
     void Start()
     {
-        currentSeason = Season.SPRING;
+        player = FindObjectOfType<BaseAI>();
 
-        dayDisplay.text = FormattedDate();
+        currentSeason = Season.SPRING;
+        currentStatus = Status.RUNNING;
     }
 
     void Update()
     {
-        CheckInGame();
+        if (currentStatus == Status.RUNNING)
+        {
+            CheckInGame();
+        }
+        else if (currentStatus == Status.RATINGINPROCESS)
+        {
+            Expressions expression = GetComponent<Expressions>();
+
+            timerText.text = countdown.ToString() + " seconds";
+            nextDayText.text = (currentDay + 1).ToString();
+
+            if (!callOnce)
+            {
+                callOnce = true;
+                expression.UpdateExpression();
+                expression.express.text = expression.currentMood.ToString();
+                StarRatingRunning();
+            }
+
+            //COUNTER
+            if (!counted)
+            {
+                counted = true;
+                StartCoroutine(CountDown());
+            }
+        }
     }
 
     void CheckInGame()
@@ -33,15 +72,21 @@ public class CycleDay : MonoBehaviour
 
         if (inGameTime >= 24.0f)
         {
-            inGameTime = 0; //reset time back to 0
-            currentDay++;
-
-            if (currentDay > 5)
-            {
-                currentDay = 1;
-                ChangeSeason();
-            }
+            currentStatus = Status.RATINGINPROCESS;
         }
+    }
+
+    void StarRatingRunning()
+    {
+        player.toggleDecay = false;
+        player.starRatingInProcess = true;
+
+        panel.SetActive(true);
+        inGameTime = 0; //reset time back to 0
+
+        dayDisplay.text = FormattedDate();
+
+        StartCoroutine(DayCounter(countdown));
     }
 
     void ChangeSeason()
@@ -78,5 +123,48 @@ public class CycleDay : MonoBehaviour
         
         //return a custom string for display
         return $"Day {dayOnDisplay:dddd}, {seasonOnDisplay}, Year {yearOnDisplay:yyyy}";
+    }
+
+    IEnumerator DayCounter(float time)
+    {
+        
+        yield return new WaitForSeconds(time);
+        currentDay++;
+
+        if (currentDay > 5)
+        {
+            currentDay = 1;
+            ChangeSeason();
+        }
+
+        //deactivate report panel
+        panel.SetActive(false);
+
+        //start decay needs again
+        player.toggleDecay = true;
+        player.starRatingInProcess = false;
+
+        //reset countdown for next time
+        countdown = 10;
+
+        //middle ground 
+        currentStatus = Status.RUNNING;
+        callOnce = false;
+    }
+
+    IEnumerator CountDown()
+    {
+        if (countdown > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            countdown--;
+        }
+
+        if (countdown <= 5)
+        {
+            timerText.color = Color.red;
+        }
+
+        counted = false;
     }
 }

@@ -5,22 +5,60 @@ using TMPro;
 
 public class Expressions : MonoBehaviour
 {
-    public int[] starLevel = { 0, 1, 2, 3, 4, 5 };
+    public int[] starLevel = { 1, 2, 3, 4, 5 };
     public enum Expression { SAD, HAPPY, BORED, EXCITED, ANGRY, DISAPPOINTMENT, TIRED, PLAYFUL, CONFIDENT}
 
     public Expression currentMood;
     public int currentStar;
 
     public TextMeshProUGUI commentText;
+    public TextMeshProUGUI express;
+
+    private BaseAI Player;
     
     void Start()
     {
-        currentStar = starLevel[1];
-        UpdateExpression(); //update the expression after day
+        Player = FindObjectOfType<BaseAI>(); // in case there are 2 players, this needs update
     }
 
-    private void UpdateExpression()
+    private void StarSystem()
     {
+        float value = Player.GetTotalValue();
+        Debug.Log(value);
+
+        if (value < 1) //total of 3 skills are 3
+        {
+            currentStar = starLevel[1];
+            Debug.Log("Total number is " + value + ". The star level is 1");
+        }
+        else if (value < 1.5) //larger than 1 and less than 1.5
+        {
+            currentStar = starLevel[2];
+            Debug.Log("Total number is " + value + ". The star level is 2");
+        }
+        else if (value < 2) //larger than 1.5 and less than 2
+        {
+            currentStar = starLevel[3];
+            Debug.Log("Total number is " + value + ". The star level is 3");
+        }
+        else if (value < 2.5) //larger than 2 and less than 2.5
+        {
+            currentStar = starLevel[4];
+            Debug.Log("Total number is " + value + ". The star level is 4");
+            
+        }
+        else if (value < 3) //larger than 2.5 and less than 3
+        {
+            currentStar = starLevel[5];
+            Debug.Log("Total number is " + value + ". The star level is 5");
+        }
+
+    }
+
+    public void UpdateExpression()
+    {
+        StarSystem();
+
         switch (currentStar)
         {
             case 1:
@@ -176,17 +214,17 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "";
+                        commentText.text = "You took care of me, did you not? Thank you!";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "I hate being here!";
+                        commentText.text = "Today is such a beautiful day since you are here with me!";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "This is so frustrating! I want to quit everything and work as a farmer in Stardew Valley!"; //Stardew Valley reference
+                        commentText.text = ""; //Stardew Valley reference
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
@@ -202,17 +240,17 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "I am sad, can you take care of me?";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "Is there anything you can do?";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "It feels so sad even City of Tears looks happier..."; //Hollow Knight reference
+                        commentText.text = ""; //Hollow Knight reference
                     }
                 }
 
@@ -224,17 +262,17 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "Eye... shutting, I can't help it.";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "zZzzZZzz";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "This must be The Dream Realm Dabria alaways speak of..."; //The Dream Catcher reference
+                        commentText.text = "";
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
@@ -249,17 +287,17 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "Eye... shutting, I can't help it.";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "zZzzZZzz";
+                        commentText.text = "";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "This must be The Dream Realm Dabria alaways speak of..."; //The Dream Catcher reference
+                        commentText.text = ""; //The Dream Catcher reference
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
