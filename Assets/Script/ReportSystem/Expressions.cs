@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Expressions : MonoBehaviour
 {
-    public int[] starLevel = { 1, 2, 3, 4, 5 };
-    public enum Expression { SAD, HAPPY, BORED, EXCITED, ANGRY, DISAPPOINTMENT, TIRED, PLAYFUL, CONFIDENT}
-
-    public Expression currentMood;
+    public int[] starLevel = { 0, 1, 2, 3, 4, 5 };
     public int currentStar;
+
+    public enum Expression { SAD, HAPPY, BORED, EXCITED, ANGRY, DISAPPOINTMENT, TIRED, PLAYFUL, CONFIDENT}
+    public Expression currentMood;
 
     public TextMeshProUGUI commentText;
     public TextMeshProUGUI express;
+
+    public Transform starHolder;
+    public Image starImage;
 
     private BaseAI Player;
     
@@ -53,6 +57,15 @@ public class Expressions : MonoBehaviour
             Debug.Log("Total number is " + value + ". The star level is 5");
         }
 
+        GetStar(starLevel[currentStar]);
+    }
+
+    void GetStar(int star)
+    {
+        for (int i = 0; i < star ; i++)
+        {
+            Instantiate(starImage, starHolder);
+        }
     }
 
     public void UpdateExpression()
