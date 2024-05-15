@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
-  m_Name: AngryByMoodSwing
+  m_Name: 08_Happy_Stuffed
   m_EditorClassIdentifier: 
-  moodletID: 0
-  moodletName: 
+  moodletID: 8
+  moodletName: Stuffed
   moodletSprite: {fileID: 0}
-  reason: 
-  secondsDuration: 0
-  effectPercentage: 0
+  reason: This food is amazing! Who made this!?
+  secondsDuration: 60
+  effectPercentage: 10
   timeToActivateMoodlet: 0
-  effectType: 1
-  secondEffect: 0
+  effectType: 0
+  secondEffect: 2

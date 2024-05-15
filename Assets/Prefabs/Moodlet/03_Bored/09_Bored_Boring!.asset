@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
-  m_Name: AngryByBadMusic
+  m_Name: 09_Bored_Boring!
   m_EditorClassIdentifier: 
   moodletID: 0
-  moodletName: Disharmony
+  moodletName: Boring!
   moodletSprite: {fileID: 0}
-  reason: This music is awful!
-  secondsDuration: 2
-  effectPercentage: 0
+  reason: What kind of show is this...
+  secondsDuration: 60
+  effectPercentage: 5
   timeToActivateMoodlet: 0
   effectType: 1
-  secondEffect: 0
+  secondEffect: 3

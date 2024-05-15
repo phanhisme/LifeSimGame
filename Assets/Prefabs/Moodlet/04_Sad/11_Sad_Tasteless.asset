@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
+  m_Name: 11_Sad_Tasteless
+  m_EditorClassIdentifier: 
+  moodletID: 0
+  moodletName: Tasteless
+  moodletSprite: {fileID: 0}
+  reason: Urg.. Did I forget to season this?
+  secondsDuration: 60
+  effectPercentage: 10
+  timeToActivateMoodlet: 0
+  effectType: 1
+  secondEffect: 2

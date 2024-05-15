@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
-  m_Name: AngryByMeanSocial
+  m_Name: 05_Happy_LovingPartner
   m_EditorClassIdentifier: 
-  moodletID: 0
-  moodletName: 
+  moodletID: 5
+  moodletName: Loving Partner
   moodletSprite: {fileID: 0}
-  reason: 
-  secondsDuration: 0
-  effectPercentage: 0
+  reason: Pleasant talk with another player!
+  secondsDuration: 120
+  effectPercentage: 5
   timeToActivateMoodlet: 0
-  effectType: 1
-  secondEffect: 0
+  effectType: 0
+  secondEffect: 2
