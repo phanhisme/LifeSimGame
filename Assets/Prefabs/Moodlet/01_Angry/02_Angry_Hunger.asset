@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 2
   moodletName: Hangry
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: bf0d6da38f4d4f143a2da418a1a8b780, type: 3}
   reason: Critically low in Hunger! This sim needs food right now!
   secondsDuration: 0
   effectPercentage: 10

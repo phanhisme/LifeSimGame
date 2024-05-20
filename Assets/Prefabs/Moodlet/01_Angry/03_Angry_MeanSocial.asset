@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 3
   moodletName: Social Sting
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
   reason: Angry after receiving a mean social interaction. Unforgiveable!
   secondsDuration: 200
   effectPercentage: 5

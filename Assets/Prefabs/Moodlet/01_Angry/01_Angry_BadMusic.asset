@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 1
   moodletName: Disharmony
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
   reason: This music is awful!
   secondsDuration: 100
   effectPercentage: 5

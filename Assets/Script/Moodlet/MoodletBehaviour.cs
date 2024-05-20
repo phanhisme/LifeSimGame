@@ -9,19 +9,18 @@ public class MoodletBehaviour : MonoBehaviour
 
     public AdvancedAI playerScript; //how can I handle 2 people?
 
+    //public List<Moodlet> allMoodlet = new List<Moodlet>();
     public List<Moodlet> runningMoodlet = new List<Moodlet>();
 
     //handle the moodlet on the player
     private void Start()
     {
-        
-
         playerScript = this.gameObject.GetComponent<AdvancedAI>();
-
     }
 
-    public void Angry()
+    void MoodletFunction(float amount)
     {
-
+       //When to add?
+        
     }
 }
