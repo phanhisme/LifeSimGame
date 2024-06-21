@@ -10,6 +10,7 @@ public class MoodletManager : MonoBehaviour
     public Transform moodletHolder;
 
     public List<Moodlet> allMoodlet = new List<Moodlet>();
+    public List<Moodlet> runningMoodlet = new List<Moodlet>();
 
     private void Start()
     {

@@ -6,6 +6,8 @@ using TMPro;
 
 public class Expressions : MonoBehaviour
 {
+    public List<Image> starsCounter = new List<Image>();
+
     public int[] starLevel = { 0, 1, 2, 3, 4, 5 };
     public int currentStar;
 
@@ -64,7 +66,8 @@ public class Expressions : MonoBehaviour
     {
         for (int i = 0; i < star ; i++)
         {
-            Instantiate(starImage, starHolder);
+            Image thisStar = Instantiate(starImage, starHolder);
+            Destroy(thisStar.gameObject, 10f);
         }
     }
 

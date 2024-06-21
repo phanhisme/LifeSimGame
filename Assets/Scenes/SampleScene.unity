@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab4e37c7ad40f3f45be48fcf5858e7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starsCounter: []
   starLevel: 000000000100000002000000030000000400000005000000
   currentStar: 0
   currentMood: 0
@@ -3831,6 +3832,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2048064738810540992, guid: 8e681a63d91a5ab4da268c619d68fa3d, type: 3}
   m_PrefabInstance: {fileID: 2048064738208944144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1548529675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548529677}
+  - component: {fileID: 1548529676}
+  m_Layer: 0
+  m_Name: _MoodletManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1548529676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548529675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 357c6afffeba417418d40c7b68194546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moodletHolder: {fileID: 2139207074}
+  allMoodlet: []
+--- !u!4 &1548529677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548529675}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 963.27954, y: 560.26953, z: 1.7126999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1551827697
 GameObject:
   m_ObjectHideFlags: 0

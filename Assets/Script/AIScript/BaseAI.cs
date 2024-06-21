@@ -104,18 +104,21 @@ public class BaseAI : MonoBehaviour
     {
         //update stats after choosing the interaction => can modify to only call this after finish performing
         //Debug.Log($"Update {target} by {amount}");
-        MoodletBehaviour moodBehaviour = FindObjectOfType<MoodletBehaviour>();
-        if (moodBehaviour.runningMoodlet != null)
+        MoodletManager moodManager = FindObjectOfType<MoodletManager>();
+        if (moodManager.runningMoodlet != null)
         {
             Debug.Log("Moodlet available for checking");
 
-            foreach (Moodlet mood in moodBehaviour.runningMoodlet)
+            foreach (Moodlet mood in moodManager.runningMoodlet)
             {
                 switch (mood.moodletID)
                 {
-                    case 1: //Angry - bad music - the
+                    case 1: //Angry - bad music
                         amount = mood.effectPercentage * amount;
                         CurrentEnergy -= amount;
+                        break;
+
+                    case 2: //Angry - low hunger
                         break;
                 }
             }

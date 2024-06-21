@@ -10,7 +10,7 @@ public class MoodletBehaviour : MonoBehaviour
     public AdvancedAI playerScript; //how can I handle 2 people?
 
     //public List<Moodlet> allMoodlet = new List<Moodlet>();
-    public List<Moodlet> runningMoodlet = new List<Moodlet>();
+    //public List<Moodlet> runningMoodlet = new List<Moodlet>();
 
     //handle the moodlet on the player
     private void Start()
