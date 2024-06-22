@@ -42,12 +42,15 @@ public class BaseAI : MonoBehaviour
     public bool starRatingInProcess = false;
 
     private Expressions starRating;
+    private MoodletManager moodManager;
 
     protected virtual void Awake()
     {
         pathScript = GameObject.Find("_AI Logic").GetComponent<Units>();
         gridScript = FindObjectOfType<Grid>();
         starRating = FindObjectOfType<Expressions>();
+
+        moodManager = FindObjectOfType<MoodletManager>();
 
         FunDisplay.value = CurrentFun = InitialFunLevel;
         EnergyDisplay.value = CurrentEnergy = InitialEnergyLevel;
@@ -69,11 +72,11 @@ public class BaseAI : MonoBehaviour
             if (!toggleDecay && !starRatingInProcess) //this have to find a way to only show 1 stat of the main player if the game has 2 players
             {
                 //stop decaying and get the total value to validate points
-                Debug.Log("he");
 
-                starRating.UpdateExpression(); //update the expression after day
+                //starRating.UpdateExpression(); //update the expression after day
+                //GetInfoOnce will only turn back on after the star rating is finished
+                
                 starRatingInProcess = true;
-                 // GetInfoOnce will only turn back on after the star rating is finished
             }
         }
         
@@ -87,10 +90,14 @@ public class BaseAI : MonoBehaviour
                 currentInteraction.Perform(this, OnInteractionFinished);
             }
         }
+
+        moodManager.MoodletDataNeeds();
     }
 
     protected virtual void OnInteractionFinished(BaseInteraction interaction)
     {
+        moodManager.AddData(); // => check after finish the object to check for its performance
+
         interaction.UnlockInteraction(); //done with it, unlock the interaction
 
         //current interaction become null right away after touching the destination
@@ -104,39 +111,30 @@ public class BaseAI : MonoBehaviour
     {
         //update stats after choosing the interaction => can modify to only call this after finish performing
         //Debug.Log($"Update {target} by {amount}");
-        MoodletManager moodManager = FindObjectOfType<MoodletManager>();
+
+        //check moodlet action first
+
         if (moodManager.runningMoodlet != null)
         {
             Debug.Log("Moodlet available for checking");
 
             foreach (Moodlet mood in moodManager.runningMoodlet)
             {
-                switch (mood.moodletID)
-                {
-                    case 1: //Angry - bad music
-                        amount = mood.effectPercentage * amount;
-                        CurrentEnergy -= amount;
-                        break;
-
-                    case 2: //Angry - low hunger
-                        break;
-                }
+                amount *= mood.effectPercentage;
             }
         }
-        else
+
+        switch (target)
         {
-            switch (target)
-            {
-                case AIStat.Energy:
-                    CurrentEnergy += amount;
-                    break;
-                case AIStat.Fun:
-                    CurrentFun += amount;
-                    break;
-                case AIStat.Hunger:
-                    CurrentHunger += amount;
-                    break;
-            }
+            case AIStat.Energy:
+                CurrentEnergy += amount;
+                break;
+            case AIStat.Fun:
+                CurrentFun += amount;
+                break;
+            case AIStat.Hunger:
+                CurrentHunger += amount;
+                break;
         }
     }
 

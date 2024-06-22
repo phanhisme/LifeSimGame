@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 6
   moodletName: Nighty night!
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: b6e0168212f13374787e9a8ab95a3800, type: 3}
   reason: ZzzzzZzzz...
   secondsDuration: 0
   effectPercentage: 5

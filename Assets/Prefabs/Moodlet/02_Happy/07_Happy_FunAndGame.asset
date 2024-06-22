@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 7
   moodletName: Fun And Game
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: b6e0168212f13374787e9a8ab95a3800, type: 3}
   reason: Nothing is better than enjoying life and have a good laugh!
   secondsDuration: 120
   effectPercentage: 10

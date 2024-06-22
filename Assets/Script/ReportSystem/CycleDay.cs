@@ -41,6 +41,8 @@ public class CycleDay : MonoBehaviour
         if (currentStatus == Status.RUNNING)
         {
             CheckInGame();
+
+            Time.timeScale = 1;
         }
         else if (currentStatus == Status.RATINGINPROCESS)
         {
@@ -63,6 +65,8 @@ public class CycleDay : MonoBehaviour
                 counted = true;
                 StartCoroutine(CountDown());
             }
+
+            Time.timeScale = 0;
         }
     }
 
@@ -127,8 +131,7 @@ public class CycleDay : MonoBehaviour
 
     IEnumerator DayCounter(float time)
     {
-        
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSecondsRealtime(time);
         currentDay++;
 
         if (currentDay > 5)
@@ -139,6 +142,13 @@ public class CycleDay : MonoBehaviour
 
         //deactivate report panel
         panel.SetActive(false);
+
+        Expressions expression = GetComponent<Expressions>();
+        foreach (GameObject star in expression.stars)
+        {
+            //destroy stars from last day
+            Destroy(star);
+        }
 
         //start decay needs again
         player.toggleDecay = true;
@@ -156,7 +166,7 @@ public class CycleDay : MonoBehaviour
     {
         if (countdown > 0)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSecondsRealtime(1f);
             countdown--;
         }
 

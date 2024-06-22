@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
-  m_Name: 08_Happy_Stuffed
+  m_Name: 17_Sad_Sleepless
   m_EditorClassIdentifier: 
-  moodletID: 8
-  moodletName: Stuffed
-  moodletSprite: {fileID: 21300000, guid: 5642392a7f18e324ebe4f0cbdd9c1f44, type: 3}
-  reason: This food is amazing! Who made this!?
-  secondsDuration: 60
-  effectPercentage: 10
+  moodletID: 17
+  moodletName: Sleepless
+  moodletSprite: {fileID: 21300000, guid: 79ca1c77f786e6c498977ef1b3177b61, type: 3}
+  reason: This bed is uncomfortable! I can not fall asleep!
+  secondsDuration: 0
+  effectPercentage: 0.2
   timeToActivateMoodlet: 0
-  effectType: 0
+  effectType: 1
   secondEffect: 2

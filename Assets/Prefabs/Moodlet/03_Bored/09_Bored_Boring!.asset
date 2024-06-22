@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
   m_Name: 09_Bored_Boring!
   m_EditorClassIdentifier: 
-  moodletID: 0
+  moodletID: 9
   moodletName: Boring!
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: 4efdafdd45f6c3a43bcf78b03aa63fdb, type: 3}
   reason: What kind of show is this...
   secondsDuration: 60
   effectPercentage: 5

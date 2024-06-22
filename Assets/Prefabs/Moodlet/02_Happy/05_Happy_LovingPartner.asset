@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 5
   moodletName: Loving Partner
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: b6e0168212f13374787e9a8ab95a3800, type: 3}
   reason: Pleasant talk with another player!
   secondsDuration: 120
   effectPercentage: 5

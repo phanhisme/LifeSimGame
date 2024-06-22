@@ -13,7 +13,7 @@ public class Moodlet : ScriptableObject
     public string reason; //reason why this moodlet appear
 
     public int  secondsDuration;
-    public int effectPercentage;
+    public float effectPercentage;
 
     public int timeToActivateMoodlet;
 

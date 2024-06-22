@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
   m_Name: 14_Embarrased_BadJoke
   m_EditorClassIdentifier: 
-  moodletID: 0
+  moodletID: 14
   moodletName: Bad Joke
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
   reason: Is it that bad?
   secondsDuration: 120
   effectPercentage: 10

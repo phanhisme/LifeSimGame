@@ -12,6 +12,8 @@ public class AdvancedAI : BaseAI
 
     protected float TimeUntilNextInteractionPick = -1f;
 
+    public SmartObject lastPicked;
+
     protected override void Awake()
     {
         base.Awake();
@@ -136,6 +138,10 @@ public class AdvancedAI : BaseAI
         {
             //not at the destination -> request path
             Debug.Log($"Going to {currentInteraction.DisplayName} at {selectedObject.DisplayName}");
+           
+            //last picked this item => check for chances to get bad outcomes
+            lastPicked = selectedObject;
+
             PathRequestManager.RequestPath(transform.position, selectedObject.InteractionPoint, pathScript.OnPathFound);
             pastObject = selectedObject;
         }

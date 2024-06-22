@@ -6,12 +6,12 @@ using TMPro;
 
 public class Expressions : MonoBehaviour
 {
-    public List<Image> starsCounter = new List<Image>();
+    public List<GameObject> stars = new List<GameObject>();
 
     public int[] starLevel = { 0, 1, 2, 3, 4, 5 };
     public int currentStar;
 
-    public enum Expression { SAD, HAPPY, BORED, EXCITED, ANGRY, DISAPPOINTMENT, TIRED, PLAYFUL, CONFIDENT}
+    public enum Expression { SAD, HAPPY, BORED, EXCITED, ANGRY, DISAPPOINTMENT, TIRED, PLAYFUL, CONFIDENT }
     public Expression currentMood;
 
     public TextMeshProUGUI commentText;
@@ -21,7 +21,7 @@ public class Expressions : MonoBehaviour
     public Image starImage;
 
     private BaseAI Player;
-    
+
     void Start()
     {
         Player = FindObjectOfType<BaseAI>(); // in case there are 2 players, this needs update
@@ -51,7 +51,7 @@ public class Expressions : MonoBehaviour
         {
             currentStar = starLevel[4];
             Debug.Log("Total number is " + value + ". The star level is 4");
-            
+
         }
         else if (value < 3) //larger than 2.5 and less than 3
         {
@@ -64,10 +64,10 @@ public class Expressions : MonoBehaviour
 
     void GetStar(int star)
     {
-        for (int i = 0; i < star ; i++)
+        for (int i = 0; i < star; i++)
         {
             Image thisStar = Instantiate(starImage, starHolder);
-            Destroy(thisStar.gameObject, 10f);
+            stars.Add(thisStar.gameObject);
         }
     }
 
@@ -108,7 +108,6 @@ public class Expressions : MonoBehaviour
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
                     }
-
                 }
 
                 else if (i == 1)
@@ -129,7 +128,8 @@ public class Expressions : MonoBehaviour
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "It feels so sad even City of Tears looks happier..."; //Hollow Knight reference
+                        commentText.text = "It feels so sad even the City of Tears looks happier..."; //Hollow Knight reference
+                        commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
                     }
                 }
 
@@ -240,7 +240,7 @@ public class Expressions : MonoBehaviour
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = ""; //Stardew Valley reference
+                        commentText.text = "Thank you, may the wind guide you!"; //Genshin reference
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
@@ -256,17 +256,18 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "";
+                        commentText.text = "Yohooo, this is so fun!!";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "";
+                        commentText.text = "I can laugh all days with you by my side!!";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = ""; //Hollow Knight reference
+                        commentText.text = "Extreme hysteric can lead to death. But I am immortal!"; //The Sims ref
+                        commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
                     }
                 }
 
@@ -278,17 +279,17 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "";
+                        commentText.text = "Nailed it! Another successful day!";
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "";
+                        commentText.text = "High five! We got all the best for today.";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = "";
+                        commentText.text = "Woke up on the right side of the bed this morning. Just you wait, Player!"; //breaking fourth?
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
@@ -303,17 +304,18 @@ public class Expressions : MonoBehaviour
 
                     if (randomReaction == 0)
                     {
-                        commentText.text = "";
+                        commentText.text = "This feels great! It almost feels like I can achieve everything I want in life!";
+                        commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;
                     }
 
                     else if (randomReaction == 1)
                     {
-                        commentText.text = "";
+                        commentText.text = "Good night. Tommorrow will be the most productive day of all.";
                     }
 
                     else if (randomReaction == 2)
                     {
-                        commentText.text = ""; //The Dream Catcher reference
+                        commentText.text = "Keep your chin high up! After today, the sun will rise yet again."; //Chromatic Heart reference
 
                         //chang size of the text to fit with the text box
                         commentText.GetComponent<TextMeshProUGUI>().fontSize = 18;

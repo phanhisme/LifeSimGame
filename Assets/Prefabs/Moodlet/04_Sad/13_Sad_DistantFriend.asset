@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774d3497bd6e39640aaf6d11c7122d2d, type: 3}
   m_Name: 13_Sad_DistantFriend
   m_EditorClassIdentifier: 
-  moodletID: 0
+  moodletID: 13
   moodletName: Distant Friend
-  moodletSprite: {fileID: 0}
+  moodletSprite: {fileID: 21300000, guid: 79ca1c77f786e6c498977ef1b3177b61, type: 3}
   reason: Missing a friend who grows apart recently. Should I call first?
   secondsDuration: 60
   effectPercentage: 5

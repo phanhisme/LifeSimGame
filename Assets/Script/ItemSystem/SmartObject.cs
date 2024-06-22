@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SmartObject : MonoBehaviour
 {
+    public int itemID;
+
     public bool isWalkable;
 
     [SerializeField] protected string _DisplayName;

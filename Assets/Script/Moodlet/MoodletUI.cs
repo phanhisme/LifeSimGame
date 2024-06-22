@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MoodletUI : MonoBehaviour
@@ -8,6 +9,7 @@ public class MoodletUI : MonoBehaviour
     public GameObject panel;
     public Moodlet thisMoodlet;
 
+    public Image icon;
     public TextMeshProUGUI nameOfMoodlet;
     public TextMeshProUGUI moodletDes;
     public TextMeshProUGUI moodletTimer;
@@ -15,14 +17,20 @@ public class MoodletUI : MonoBehaviour
     public void Start()
     {
         panel.SetActive(false);
-
-        nameOfMoodlet.text = thisMoodlet.moodletName;
-        moodletDes.text = thisMoodlet.reason;
     }
 
     public void Update()
     {
-        moodletTimer.text = thisMoodlet.secondsDuration.ToString();
+        if (thisMoodlet != null)
+        {
+            float time = thisMoodlet.secondsDuration;
+            time -= Time.deltaTime;
+            moodletTimer.text = Mathf.CeilToInt(time).ToString();
+
+            icon.sprite = thisMoodlet.moodletSprite;
+            nameOfMoodlet.text = thisMoodlet.moodletName;
+            moodletDes.text = thisMoodlet.reason;
+        }
     }
 
     public void HoverOn()
