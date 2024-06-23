@@ -16,8 +16,8 @@ MonoBehaviour:
   moodletName: Stuffed
   moodletSprite: {fileID: 21300000, guid: 5642392a7f18e324ebe4f0cbdd9c1f44, type: 3}
   reason: This food is amazing! Who made this!?
-  secondsDuration: 60
-  effectPercentage: 10
+  secondsDuration: 10
+  effectPercentage: 1.2
   timeToActivateMoodlet: 0
   effectType: 0
-  secondEffect: 2
+  statRelated: 2

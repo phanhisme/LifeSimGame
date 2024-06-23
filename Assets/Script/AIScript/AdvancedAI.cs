@@ -49,6 +49,17 @@ public class AdvancedAI : BaseAI
         foreach(InteractionStatChange change in interaction.StatChanges)
         {
             score += ScoreChange(change.Target, change.Value);
+
+            //check moodlet
+            MoodletManager moodManager = FindObjectOfType<MoodletManager>();
+            foreach(Moodlet mood in moodManager.runningMoodlet)
+            {
+                if (mood.effectType == Moodlet.EffectType.INFLUENCE)
+                {
+                    //Influence the AI to do what they critically needs by upgrading their score needs
+                    score += 0.5f;
+                }
+            }
         }
 
         return score;

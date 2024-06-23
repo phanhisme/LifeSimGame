@@ -8,7 +8,8 @@ public enum AIStat
 {
     Energy,
     Fun,
-    Hunger
+    Hunger,
+    None
 }
 
 public class BaseAI : MonoBehaviour
@@ -113,18 +114,21 @@ public class BaseAI : MonoBehaviour
         //Debug.Log($"Update {target} by {amount}");
 
         //check moodlet action first
-
         if (moodManager.runningMoodlet != null)
         {
             Debug.Log("Moodlet available for checking");
 
-            foreach (Moodlet mood in moodManager.runningMoodlet)
+            foreach (Moodlet mood in moodManager.runningMoodlet) //if there is a running moodlet that may effect the outcome => check
             {
-                amount *= mood.effectPercentage;
+                //boost regen rate
+                if (mood.effectType == Moodlet.EffectType.POSITIVE || mood.effectType == Moodlet.EffectType.INFLUENCE) //while positive helps regen faster
+                {
+                    amount *= mood.effectPercentage;
+                }
             }
         }
 
-        switch (target)
+        switch (target) //adding the amount based on the object chose and its chosen stat
         {
             case AIStat.Energy:
                 CurrentEnergy += amount;
@@ -140,6 +144,30 @@ public class BaseAI : MonoBehaviour
 
     void DecayNeeds()
     {
+        if (moodManager.runningMoodlet.Count > 0)
+        {
+            foreach (Moodlet moodlet in moodManager.runningMoodlet)
+            {
+                if (moodlet.effectType == Moodlet.EffectType.NEGATIVE)
+                {
+                    if (moodlet.statRelated == AIStat.Fun)
+                    {
+                        CurrentFun = Mathf.Clamp01(CurrentFun - BaseFunDecayRate * Time.deltaTime);
+                    }
+
+                    else if (moodlet.statRelated == AIStat.Energy)
+                    {
+                        CurrentEnergy = Mathf.Clamp01(CurrentEnergy - BaseEnergyDecayRate * Time.deltaTime);
+                    }
+
+                    else if (moodlet.statRelated == AIStat.Hunger)
+                    {
+                        CurrentHunger = Mathf.Clamp01(CurrentHunger - BaseHungerDecayRate * Time.deltaTime);
+                    }
+                }
+            }
+        }
+
         //decay needs overtime
         CurrentFun = Mathf.Clamp01(CurrentFun - BaseFunDecayRate * Time.deltaTime);
         FunDisplay.value = CurrentFun;
@@ -155,8 +183,11 @@ public class BaseAI : MonoBehaviour
     {
         float totalValue = CurrentFun + CurrentEnergy + CurrentHunger;
         Debug.Log("Total value = " + totalValue);
+        Debug.Log(CurrentEnergy);
+        Debug.Log(CurrentHunger);
+        Debug.Log(CurrentFun);
 
-        foreach(AIStat stat in Enum.GetValues(typeof(AIStat)))
+        foreach (AIStat stat in Enum.GetValues(typeof(AIStat))) //Get star by calculating the total value of the needs
         {
             float penaltyPoint = 0; //for each need that does not do well
             if (CurrentFun < 0.25 || CurrentEnergy < 0.25 || CurrentHunger < 0.25)

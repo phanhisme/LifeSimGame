@@ -17,7 +17,7 @@ MonoBehaviour:
   moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
   reason: Angry after receiving a mean social interaction. Unforgiveable!
   secondsDuration: 200
-  effectPercentage: 5
+  effectPercentage: 0
   timeToActivateMoodlet: 0
   effectType: 1
-  secondEffect: 3
+  statRelated: 3

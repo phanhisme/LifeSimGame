@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class MoodletManager : MonoBehaviour
 {
-    //handle the UI for moodlet
-    //return the number??
-
     public GameObject moodletItem;
     public Transform moodletHolder;
 
     public List<Moodlet> allMoodlet = new List<Moodlet>();
     public List<Moodlet> runningMoodlet = new List<Moodlet>();
+
+    public List<GameObject> moodletUI = new List<GameObject>();
 
     private AdvancedAI AI;
 
@@ -33,6 +32,8 @@ public class MoodletManager : MonoBehaviour
         if (dataToAdd != null && !CheckExist(dataToAdd))
         {
             GameObject UIElement = Instantiate(moodletItem, moodletHolder);
+            moodletUI.Add(UIElement);
+
             MoodletUI ui = UIElement.GetComponent<MoodletUI>();
             ui.thisMoodlet = dataToAdd;
             runningMoodlet.Add(dataToAdd);
@@ -66,7 +67,7 @@ public class MoodletManager : MonoBehaviour
                     }
                 }
 
-                return CheckMoodlet(17);
+                return null;
 
             case 3: //Musical instrument
                 float chance = Random.value;
@@ -117,14 +118,6 @@ public class MoodletManager : MonoBehaviour
     {
         Moodlet dataToAdd = null;
 
-        //if (AI.CurrentEnergy < 0.4)
-        //{
-        //    if (!CheckExist(dataToAdd))
-        //    {
-        //        runningMoodlet.Add(dataToAdd);
-        //    }
-        //}
-
         //FUN
         if (AI.CurrentFun > 0.8)
         {
@@ -152,21 +145,27 @@ public class MoodletManager : MonoBehaviour
         //HUNGER
         if (AI.CurrentHunger < 0.4)
         {
-            float randChance = Random.value;
+            float randChance = Random.value; //random chance to get the moodlet
             if (randChance > 0.6f)
             {
-                dataToAdd = CheckMoodlet(2);
+                dataToAdd = CheckMoodlet(2); //which moodlet to add
             }
         }
         else if (AI.CurrentFun < 0.2)
         {
-            dataToAdd = CheckMoodlet(2);
+            dataToAdd = CheckMoodlet(2); //if the condition is critical, always get influence moodlet
         }
 
         float moodswingChance = Random.value;
         if (moodswingChance < 0.2f)
         {
             dataToAdd = CheckMoodlet(4);
+        }
+
+        float wheresthetoiletChance = Random.value;
+        if (wheresthetoiletChance < 0.1)
+        {
+            dataToAdd = CheckMoodlet(16);
         }
 
         if (dataToAdd != null && CheckExist(dataToAdd))

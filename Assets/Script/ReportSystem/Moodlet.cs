@@ -19,5 +19,6 @@ public class Moodlet : ScriptableObject
 
     public enum EffectType {POSITIVE, NEGATIVE, NONE, INFLUENCE }
     public EffectType effectType;
-    public EffectType secondEffect;
+
+    public AIStat statRelated;
 }
