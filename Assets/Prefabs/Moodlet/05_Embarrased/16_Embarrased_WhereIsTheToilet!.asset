@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 16
   moodletName: Where is the Toilet!?
-  moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
+  moodletSprite: {fileID: 21300000, guid: 6c3e594f6a5c641458d5178b4221f87b, type: 3}
   reason: Toilet may be a sweet addition to this house...
   secondsDuration: 20
-  effectPercentage: 1.005
+  effectPercentage: 0.02
   timeToActivateMoodlet: 0
   effectType: 1
-  statRelated: 0
+  statRelated: 2

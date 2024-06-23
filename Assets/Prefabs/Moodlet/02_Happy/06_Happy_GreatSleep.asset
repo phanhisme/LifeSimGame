@@ -17,7 +17,7 @@ MonoBehaviour:
   moodletSprite: {fileID: 21300000, guid: b6e0168212f13374787e9a8ab95a3800, type: 3}
   reason: ZzzzzZzzz...
   secondsDuration: 10
-  effectPercentage: 1.2
+  effectPercentage: 0.2
   timeToActivateMoodlet: 0
   effectType: 0
   statRelated: 0

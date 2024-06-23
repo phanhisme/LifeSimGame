@@ -16,17 +16,17 @@ public class BaseAI : MonoBehaviour
 {
     [Header("Fun")]
     [SerializeField] float InitialFunLevel = 0.5f;
-    [SerializeField] float BaseFunDecayRate = 0.005f;
+    [SerializeField] public float BaseFunDecayRate = 0.005f;
     [SerializeField] Slider FunDisplay;
 
     [Header("Energy")]
     [SerializeField] float InitialEnergyLevel = 0.5f;
-    [SerializeField] float BaseEnergyDecayRate = 0.005f;
+    [SerializeField] public float BaseEnergyDecayRate = 0.005f;
     [SerializeField] Slider EnergyDisplay;
 
     [Header("Hunger")]
     [SerializeField] float InitialHungerLevel = 0.5f;
-    [SerializeField] float BaseHungerDecayRate = 0.005f;
+    [SerializeField] public float BaseHungerDecayRate = 0.005f;
     [SerializeField] Slider HungerDisplay;
 
     public float CurrentFun { get; protected set; }
@@ -39,19 +39,18 @@ public class BaseAI : MonoBehaviour
     protected BaseInteraction currentInteraction = null;
     protected SmartObject pastObject;
 
-    public bool toggleDecay = true; //turn decay on/off
-    public bool starRatingInProcess = false;
-
-    private Expressions starRating;
+    private CycleDay dayTimer;
     private MoodletManager moodManager;
+
+    public float needValue;
 
     protected virtual void Awake()
     {
         pathScript = GameObject.Find("_AI Logic").GetComponent<Units>();
         gridScript = FindObjectOfType<Grid>();
-        starRating = FindObjectOfType<Expressions>();
 
         moodManager = FindObjectOfType<MoodletManager>();
+        dayTimer = FindObjectOfType<CycleDay>();
 
         FunDisplay.value = CurrentFun = InitialFunLevel;
         EnergyDisplay.value = CurrentEnergy = InitialEnergyLevel;
@@ -61,24 +60,9 @@ public class BaseAI : MonoBehaviour
     //using virtual in case we need to override
     protected virtual void Update() 
     {
-        if (toggleDecay) //get info once helps to prevent decay when star rating is running
+        if (dayTimer.currentStatus == CycleDay.Status.RUNNING) //get info once helps to prevent decay when star rating is running
         {
             DecayNeeds();
-        }
-
-        else //star rating in process
-        {
-            toggleDecay = false;
-
-            if (!toggleDecay && !starRatingInProcess) //this have to find a way to only show 1 stat of the main player if the game has 2 players
-            {
-                //stop decaying and get the total value to validate points
-
-                //starRating.UpdateExpression(); //update the expression after day
-                //GetInfoOnce will only turn back on after the star rating is finished
-                
-                starRatingInProcess = true;
-            }
         }
         
         pathScript.CheckOnTarget();
@@ -93,6 +77,16 @@ public class BaseAI : MonoBehaviour
         }
 
         moodManager.MoodletDataNeeds();
+
+        if (dayTimer.currentStatus == CycleDay.Status.RATINGINPROCESS && !dayTimer.getValue)
+        {
+            //get value after the day ends -> set star
+            Expressions expression = FindObjectOfType<Expressions>();
+            needValue = GetTotalValue();
+            expression.StarSystem(needValue);
+
+            dayTimer.getValue = true;
+        }
     }
 
     protected virtual void OnInteractionFinished(BaseInteraction interaction)
@@ -123,7 +117,7 @@ public class BaseAI : MonoBehaviour
                 //boost regen rate
                 if (mood.effectType == Moodlet.EffectType.POSITIVE || mood.effectType == Moodlet.EffectType.INFLUENCE) //while positive helps regen faster
                 {
-                    amount *= mood.effectPercentage;
+                    amount += mood.effectPercentage;
                 }
             }
         }
@@ -144,30 +138,6 @@ public class BaseAI : MonoBehaviour
 
     void DecayNeeds()
     {
-        if (moodManager.runningMoodlet.Count > 0)
-        {
-            foreach (Moodlet moodlet in moodManager.runningMoodlet)
-            {
-                if (moodlet.effectType == Moodlet.EffectType.NEGATIVE)
-                {
-                    if (moodlet.statRelated == AIStat.Fun)
-                    {
-                        CurrentFun = Mathf.Clamp01(CurrentFun - BaseFunDecayRate * Time.deltaTime);
-                    }
-
-                    else if (moodlet.statRelated == AIStat.Energy)
-                    {
-                        CurrentEnergy = Mathf.Clamp01(CurrentEnergy - BaseEnergyDecayRate * Time.deltaTime);
-                    }
-
-                    else if (moodlet.statRelated == AIStat.Hunger)
-                    {
-                        CurrentHunger = Mathf.Clamp01(CurrentHunger - BaseHungerDecayRate * Time.deltaTime);
-                    }
-                }
-            }
-        }
-
         //decay needs overtime
         CurrentFun = Mathf.Clamp01(CurrentFun - BaseFunDecayRate * Time.deltaTime);
         FunDisplay.value = CurrentFun;
@@ -182,31 +152,25 @@ public class BaseAI : MonoBehaviour
     public float GetTotalValue()
     {
         float totalValue = CurrentFun + CurrentEnergy + CurrentHunger;
-        Debug.Log("Total value = " + totalValue);
-        Debug.Log(CurrentEnergy);
-        Debug.Log(CurrentHunger);
-        Debug.Log(CurrentFun);
+        float penaltyPoint = 0f; //for each need that does not do well
 
-        foreach (AIStat stat in Enum.GetValues(typeof(AIStat))) //Get star by calculating the total value of the needs
+        if (CurrentFun < 0.25f || CurrentEnergy < 0.25f || CurrentHunger < 0.25f)
         {
-            float penaltyPoint = 0; //for each need that does not do well
-            if (CurrentFun < 0.25 || CurrentEnergy < 0.25 || CurrentHunger < 0.25)
-            {
-                penaltyPoint = 0.25f;
-            }
-            else if (CurrentFun < 0.5 || CurrentEnergy < 0.5 || CurrentHunger < 0.5)
-            {
-                penaltyPoint = 0.1f;
-            }
-            else if (CurrentFun < 0.75 || CurrentEnergy < 0.75 || CurrentHunger < 0.75)
-            {
-                penaltyPoint = 0.05f;
-            }
-
-            Debug.Log(penaltyPoint);
-            totalValue -= penaltyPoint;
+            penaltyPoint += 0.25f;
+        }
+        if (CurrentFun < 0.5f || CurrentEnergy < 0.5f || CurrentHunger < 0.5f)
+        {
+            penaltyPoint += 0.1f;
+        }
+        if (CurrentFun < 0.75f || CurrentEnergy < 0.75f || CurrentHunger < 0.75f)
+        {
+            penaltyPoint += 0.05f;
         }
 
-            return totalValue;
+        //Debug.Log(penaltyPoint);
+        totalValue -= penaltyPoint;
+
+        //Debug.Log("Total value = " + totalValue);
+        return totalValue;
     }
 }

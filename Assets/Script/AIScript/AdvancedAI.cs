@@ -157,4 +157,29 @@ public class AdvancedAI : BaseAI
             pastObject = selectedObject;
         }
     }
+
+    public float DecayCheck(Moodlet moodlet) //this calls after getting a negative moodlet
+    {
+        if (moodlet.statRelated == AIStat.Fun) //based on what AI stat the moodlet has, increase the decay rate of its AI stat path
+        {
+            return BaseFunDecayRate += moodlet.effectPercentage;
+        }
+
+        else if (moodlet.statRelated == AIStat.Energy)
+        {
+            return BaseEnergyDecayRate += moodlet.effectPercentage;
+        }
+
+        else if (moodlet.statRelated == AIStat.Hunger)
+        {
+            return BaseHungerDecayRate += moodlet.effectPercentage;
+        }
+
+        else
+            return 0f;
+
+        //the rate used to be BaseHungerDecayRate *= moodlet.effectPercentage, though it was removed since the data can increase if recieve 2 moodlets at the same time
+        //thus, using +=,-= will keep the rate clean.
+        //using -= also allows to track back to its original data easily
+    }
 }

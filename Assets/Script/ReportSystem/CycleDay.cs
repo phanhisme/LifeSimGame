@@ -27,6 +27,9 @@ public class CycleDay : MonoBehaviour
     public int countdown;
     private bool counted = false;
     private bool callOnce = false;
+    public bool getValue = false;
+
+    public float test;
 
     void Start()
     {
@@ -46,17 +49,16 @@ public class CycleDay : MonoBehaviour
         }
         else if (currentStatus == Status.RATINGINPROCESS)
         {
-            Expressions expression = GetComponent<Expressions>();
-
             timerText.text = countdown.ToString() + " seconds";
             nextDayText.text = (currentDay + 1).ToString();
 
-            if (!callOnce)
+            if (!callOnce) //only work if the rating system is in process
             {
-                callOnce = true;
-                expression.UpdateExpression();
-                expression.express.text = expression.currentMood.ToString();
-                StarRatingRunning();
+                if (getValue)
+                {
+                    StarRatingRunning();
+                    callOnce = true;
+                }
             }
 
             //COUNTER
@@ -80,16 +82,21 @@ public class CycleDay : MonoBehaviour
         }
     }
 
-    void StarRatingRunning()
+    public void StarRatingRunning()
     {
-        player.toggleDecay = false;
-        player.starRatingInProcess = true;
-
         panel.SetActive(true);
         inGameTime = 0; //reset time back to 0
 
         dayDisplay.text = FormattedDate();
 
+        //calculate the current data of the needs and transform them into stars
+        //Expressions expression = GetComponent<Expressions>();
+        //expression.StarSystem(player.needValue);
+
+        Expressions expression = GetComponent<Expressions>();
+        Debug.Log(player.needValue);
+        
+        expression.express.text = expression.currentMood.ToString();
         StartCoroutine(DayCounter(countdown));
     }
 
@@ -148,11 +155,9 @@ public class CycleDay : MonoBehaviour
         {
             //destroy stars from last day
             Destroy(star);
-        }
 
-        //start decay needs again
-        player.toggleDecay = true;
-        player.starRatingInProcess = false;
+            //expression.stars.Remove(star);
+        }
 
         //reset countdown for next time
         countdown = 10;
@@ -160,6 +165,7 @@ public class CycleDay : MonoBehaviour
         //middle ground 
         currentStatus = Status.RUNNING;
         callOnce = false;
+        getValue = false;
     }
 
     IEnumerator CountDown()

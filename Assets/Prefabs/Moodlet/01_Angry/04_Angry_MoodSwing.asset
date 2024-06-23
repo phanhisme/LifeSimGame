@@ -17,7 +17,7 @@ MonoBehaviour:
   moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
   reason: Bad bad day!
   secondsDuration: 20
-  effectPercentage: 1.005
+  effectPercentage: 0.02
   timeToActivateMoodlet: 0
   effectType: 1
   statRelated: 1

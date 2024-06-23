@@ -27,11 +27,8 @@ public class Expressions : MonoBehaviour
         Player = FindObjectOfType<BaseAI>(); // in case there are 2 players, this needs update
     }
 
-    private void StarSystem()
+    public void StarSystem(float value)
     {
-        float value = Player.GetTotalValue();
-        Debug.Log(value);
-
         if (value < 1) //total of 3 skills are 3
         {
             currentStar = starLevel[1];
@@ -59,10 +56,11 @@ public class Expressions : MonoBehaviour
             Debug.Log("Total number is " + value + ". The star level is 5");
         }
 
+        UpdateExpression();
         GetStar(starLevel[currentStar]);
     }
 
-    void GetStar(int star)
+    void GetStar(int star) //instantiate star objects
     {
         for (int i = 0; i < star; i++)
         {
@@ -73,8 +71,6 @@ public class Expressions : MonoBehaviour
 
     public void UpdateExpression()
     {
-        StarSystem();
-
         switch (currentStar)
         {
             case 1:

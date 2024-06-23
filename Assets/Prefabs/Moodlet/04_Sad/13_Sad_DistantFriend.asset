@@ -17,7 +17,7 @@ MonoBehaviour:
   moodletSprite: {fileID: 21300000, guid: 79ca1c77f786e6c498977ef1b3177b61, type: 3}
   reason: Missing a friend who grows apart recently. Should I call first?
   secondsDuration: 10
-  effectPercentage: 1.005
+  effectPercentage: 0.02
   timeToActivateMoodlet: 0
   effectType: 2
   statRelated: 3

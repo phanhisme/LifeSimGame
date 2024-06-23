@@ -17,7 +17,7 @@ MonoBehaviour:
   moodletSprite: {fileID: 21300000, guid: 79ca1c77f786e6c498977ef1b3177b61, type: 3}
   reason: This song is so sad, I want to cry!
   secondsDuration: 10
-  effectPercentage: 1.005
+  effectPercentage: 0.02
   timeToActivateMoodlet: 0
   effectType: 1
   statRelated: 1

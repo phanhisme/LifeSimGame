@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moodletID: 14
   moodletName: Bad Joke
-  moodletSprite: {fileID: 21300000, guid: 9d1ffa14636a4e140bbbabc45702b881, type: 3}
+  moodletSprite: {fileID: 21300000, guid: 6c3e594f6a5c641458d5178b4221f87b, type: 3}
   reason: Is it that bad?
   secondsDuration: 120
-  effectPercentage: 1.05
+  effectPercentage: 0.02
   timeToActivateMoodlet: 0
   effectType: 2
   statRelated: 3
